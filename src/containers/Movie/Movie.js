@@ -1,72 +1,126 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import { getUrl, IMAGE_BASE_URL } from '../../shared/moviedb';
 import { withRouter } from 'react-router';
-import { Card, CardActions, CardMedia, CardText, CardTitle, FlatButton } from 'material-ui';
+import {
+  Card, CardActions, CardMedia, CardText, CardTitle, FlatButton, IconButton,
+  Snackbar
+} from 'material-ui';
 import Genres from '../../components/Genres/Genres';
+import FontIcon from 'material-ui/FontIcon';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions';
 
-class Movie extends Component{
-state = {
-  movie: {
-    title: 'asd',
-    tagline:'asqwe',
-    backdrop_path:'',
-    overview:'',
-    status:'',
-    genres:[],
+class Movie extends Component {
+  state = {
+    movie:{},
+    snackbar: {
+      open: false
+    },
 
-  }
-};
+  };
 
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    console.log(this.props.match);
-    const url = getUrl('/movie/'+id);
+    const url = getUrl('/movie/' + id);
 
     fetch(url)
-      .then(res=> res.json())
-      .then(res=> {
-        console.log(res);
+      .then(res => res.json())
+      .then(res => {
         this.setState({
           movie: res
         })
       })
-
-
   }
+
+  handleClick = (id) => {
+
+    this.setState({
+      ...this.state,
+      snackbar: {
+        open: true
+      }
+    });
+    this.props.movie.favorite ? this.props.onRemoveMovieFromFavorite(id) : this.props.onAddMovieToFavorite(id);
+    console.log(this.props.movie);
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      ...this.state,
+      snackbar: {
+        open: false
+      }
+    });
+  };
+
   render() {
+    console.log(this.props.movie);
     let genres = null;
-    if(this.state.movie && this.state.movie.genres && this.state.movie.genres.length){
-      genres = <div><strong> Genres: </strong>
-          <Genres genres={this.state.movie.genres}/>
-        </div>
+    if (this.props.movie && this.props.movie.genres && this.props.movie.genres.length) {
+      genres = <Genres genres={this.props.movie.genres}/>
     }
+    const iconStyles = {
+      marginRight: 24,
+      backgroundColor: 'red'
+    };
+    let favorIcon = (
+      <IconButton
+        tooltip={this.props.movie.favorite ? 'Remove from favourite' : 'Add to favourite'}
+        onClick={() => this.handleClick(this.props.movie.id)}>
+        <FontIcon
+          className="material-icons"
+          style={iconStyles}>
+          {this.props.movie.favorite ? 'favorite' : 'favorite_border'}
+        </FontIcon>;
+      </IconButton>
+    );
     return (
       <Card>
         <CardMedia
-          overlay={<CardTitle title={this.state.movie.title} subtitle={this.state.movie.tagline} />}>
-          <img  src={IMAGE_BASE_URL+this.state.movie.backdrop_path} />
-
+          overlay={<CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>}>
+          <img src={IMAGE_BASE_URL + this.props.movie.backdrop_path} alt={this.props.movie.title}/>
         </CardMedia>
-        <CardTitle title={this.state.movie.title} subtitle={this.state.movie.tagline} />
+        <CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>
         <CardText>
+          {favorIcon}
           <div>
-            <p><strong> Status: </strong> {this.state.movie.status}</p>
-
+            <p><strong> Status: </strong>{this.props.movie.status}</p>
           </div>
           <div>
             {genres}
           </div>
-          {this.state.movie.overview}
+          {this.props.movie.overview}
         </CardText>
         <CardActions>
-          <FlatButton label="Action1" />
-          <FlatButton label="Action2" />
+          {/*<FlatButton label="Action1" />*/}
+          {/*<FlatButton label="Action2" />*/}
         </CardActions>
+        <Snackbar
+          open={this.state.snackbar.open}
+          message={this.props.movie.favorite ?
+            `${this.props.movie.title} added to your Favorites` : `${this.props.movie.title} removed from Favorites`}
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
       </Card>
     )
   }
 }
 
-export default withRouter(Movie);
+const mapStateToProps = state => {
+  return {
+    movie: state.currentMovie.movie,
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onMovieInit: (id) => dispatch(actions.movieInit(id)),
+    onAddMovieToFavorite: (id) => dispatch(actions.addMovieToFavorite(id)),
+    onRemoveMovieFromFavorite: (id) => dispatch(actions.removeMovieFromFavorite(id)),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Movie));
