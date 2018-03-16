@@ -23,15 +23,16 @@ class Movie extends Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
+    this.props.onMovieInit(id);
     const url = getUrl('/movie/' + id);
 
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          movie: res
-        })
-      })
+    // fetch(url)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     this.setState({
+    //       movie: res
+    //     })
+    //   })
   }
 
   handleClick = (id) => {
@@ -117,7 +118,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onMovieInit: (id) => dispatch(actions.movieInit(id)),
+    onMovieInit: (id) => dispatch(actions.fetchMovieInit(id)),
     onAddMovieToFavorite: (id) => dispatch(actions.addMovieToFavorite(id)),
     onRemoveMovieFromFavorite: (id) => dispatch(actions.removeMovieFromFavorite(id)),
   }

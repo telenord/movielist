@@ -1,5 +1,8 @@
 export {
   addMovieToFavorite,
   removeMovieFromFavorite,
-  movieInit,
-} from './favorite'
+  fetchMovieInit,
+  fetchMovieStart,
+  fetchMovieFail,
+  fetchMovieSuccess,
+} from './movie'

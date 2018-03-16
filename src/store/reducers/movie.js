@@ -5,7 +5,6 @@ const initialState = {
     favorite: false,
   },
   favoriteList:[]
-
 };
 
 const movieAddToFavorite = (state, action)=>{
@@ -27,12 +26,26 @@ const removeMovieFromFavorite = (state, action)=>{
     favoriteList: state.favoriteList.filter(id=>{
       return id !== action.id
     }) };
-}
+};
+
+const movieFetchSuccess = (state, action)=> {
+
+  return {
+    ...state,
+    movie: action.movie,
+  }
+
+    // favoriteList: state.favoriteList.filter(id=>{
+    //   return id !== action.id
+    // }) };
+};
+
 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    // case actionTypes.MOVIE_FETCH_INIT: return state;
+    case actionTypes.MOVIE_FETCH_SUCCESS:
+      return movieFetchSuccess(state, action);
     case actionTypes.MOVIE_ADD_TO_FAVORITE:
       return movieAddToFavorite(state, action);
     case actionTypes.MOVIE_REMOVE_FROM_FAVORITE:

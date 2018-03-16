@@ -15,9 +15,30 @@ export const removeMovieFromFavorite = (id) => {
   }
 };
 
-export const movieInit = (id) => {
+export const fetchMovieInit = (id) => {
   return {
     type: actionTypes.MOVIE_FETCH_INIT,
+    id : id
+  }
+};
+
+export const fetchMovieStart = () => {
+  return {
+    type: actionTypes.MOVIE_FETCH_START,
+  }
+};
+
+export const fetchMovieSuccess = (movie) => {
+  return {
+    type: actionTypes.MOVIE_FETCH_SUCCESS,
+    movie : movie
+  }
+};
+
+export const fetchMovieFail = (error) => {
+  return {
+    type: actionTypes.MOVIE_FETCH_FAIL,
+    error: error
   }
 };
 
