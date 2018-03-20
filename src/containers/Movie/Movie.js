@@ -1,50 +1,41 @@
 import React, { Component } from 'react';
 
-import { getUrl, IMAGE_BASE_URL } from '../../shared/moviedb';
+import { IMAGE_BASE_URL } from '../../shared/moviedb';
 import { withRouter } from 'react-router';
 import {
-  Card, CardActions, CardMedia, CardText, CardTitle, FlatButton, IconButton,
-  Snackbar
+  Card, CardMedia, CardText, CardTitle, IconButton,  Snackbar
 } from 'material-ui';
 import Genres from '../../components/Genres/Genres';
 import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
+import { createStructuredSelector } from "reselect";
+import {
+  makeSelectFavorite, makeSelectFavoriteList, makeSelectMovie,
+  makeSelectMovieIsFavorite
+} from '../../store/selectors';
+
 
 class Movie extends Component {
   state = {
-    movie:{},
     snackbar: {
       open: false
     },
-
   };
-
 
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.onMovieInit(id);
-    const url = getUrl('/movie/' + id);
-
-    // fetch(url)
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     this.setState({
-    //       movie: res
-    //     })
-    //   })
   }
 
   handleClick = (id) => {
-
     this.setState({
       ...this.state,
       snackbar: {
         open: true
       }
     });
-    this.props.movie.favorite ? this.props.onRemoveMovieFromFavorite(id) : this.props.onAddMovieToFavorite(id);
-    console.log(this.props.movie);
+    this.props.movieIsFavorite ? this.props.onRemoveMovieFromFavorite(id) : this.props.onAddMovieToFavorite(id);
   };
 
   handleRequestClose = () => {
@@ -57,64 +48,77 @@ class Movie extends Component {
   };
 
   render() {
-    console.log(this.props.movie);
-    let genres = null;
-    if (this.props.movie && this.props.movie.genres && this.props.movie.genres.length) {
-      genres = <Genres genres={this.props.movie.genres}/>
+    if(this.props.movie){
+      console.log('props.movieIsFavorite', this.props.movieIsFavorite);
     }
+
     const iconStyles = {
       marginRight: 24,
-      backgroundColor: 'red'
+
     };
-    let favorIcon = (
+    let genres = null;
+    let favorIcon =  (
       <IconButton
-        tooltip={this.props.movie.favorite ? 'Remove from favourite' : 'Add to favourite'}
+        tooltip={this.props.movieIsFavorite ? 'Remove from favourite' : 'Add to favourite'}
+        style={iconStyles}
         onClick={() => this.handleClick(this.props.movie.id)}>
         <FontIcon
-          className="material-icons"
-          style={iconStyles}>
-          {this.props.movie.favorite ? 'favorite' : 'favorite_border'}
+          className= {this.props.movieIsFavorite ? 'material-icons icon__favorite' : 'material-icons icon__favorite_border'}
+           style={iconStyles}
+        >{this.props.movieIsFavorite ? 'favorite' : 'favorite_border'}
         </FontIcon>;
       </IconButton>
     );
-    return (
-      <Card>
-        <CardMedia
-          overlay={<CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>}>
-          <img src={IMAGE_BASE_URL + this.props.movie.backdrop_path} alt={this.props.movie.title}/>
-        </CardMedia>
-        <CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>
-        <CardText>
-          {favorIcon}
-          <div>
-            <p><strong> Status: </strong>{this.props.movie.status}</p>
-          </div>
-          <div>
-            {genres}
-          </div>
-          {this.props.movie.overview}
-        </CardText>
-        <CardActions>
-          {/*<FlatButton label="Action1" />*/}
-          {/*<FlatButton label="Action2" />*/}
-        </CardActions>
-        <Snackbar
-          open={this.state.snackbar.open}
-          message={this.props.movie.favorite ?
-            `${this.props.movie.title} added to your Favorites` : `${this.props.movie.title} removed from Favorites`}
-          autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
-        />
-      </Card>
-    )
+
+    if (this.props.movie && this.props.movie.genres && this.props.movie.genres.length) {
+      genres = <Genres genres={this.props.movie.genres}/>
+    }
+
+    if(this.props.movie) {
+      return (
+        <Card>
+          <CardMedia
+            overlay={<CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>}>
+            <img src={IMAGE_BASE_URL + this.props.movie.backdrop_path} alt={this.props.movie.title}/>
+          </CardMedia>
+          <CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>
+          <CardText>
+            {favorIcon}
+            <div>
+              <p><strong> Status: </strong>{this.props.movie.status}</p>
+            </div>
+            <div>
+              {genres}
+            </div>
+            {this.props.movie.overview}
+          </CardText>
+          <Snackbar
+            open={this.state.snackbar.open}
+            message={this.props.movieIsFavorite ?
+              `${this.props.movie.title} added to your Favorites` : `${this.props.movie.title} removed from Favorites`}
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestClose}
+          />
+        </Card>
+      )
+    } else {
+      return null;
+    }
   }
 }
 
 const mapStateToProps = state => {
-  return {
-    movie: state.currentMovie.movie,
-  }
+  // return {
+  //   movie: state.currentMovie.movie,
+  // }
+  return createStructuredSelector({
+    movie: makeSelectMovie(),
+   movieIsFavorite: makeSelectMovieIsFavorite(),
+   // movieIsFavorite:makeSelectFavorite()
+  });
 };
+
+
 
 const mapDispatchToProps = dispatch => {
   return {

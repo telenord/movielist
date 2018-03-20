@@ -4,21 +4,14 @@ import axios from 'axios';
 import * as actions from './../actions/index';
 import { getUrl } from '../../shared/moviedb';
 
+
 export function* fetchMovieSaga(action) {
   const url = getUrl('/movie/' + action.id);
 
   yield put(actions.fetchMovieStart());
-
   try {
     const response = yield axios.get(url);
-    console.log(response.data);
-    const fetchedOrders = [];
-    for (let key in response.data) {
-      fetchedOrders.push({
-        ...response.data[key],
-        id: key
-      })
-    }
+
     yield put(actions.fetchMovieSuccess(response.data));
 
   } catch (error) {

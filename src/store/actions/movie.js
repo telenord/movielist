@@ -41,11 +41,3 @@ export const fetchMovieFail = (error) => {
     error: error
   }
 };
-
-export const purchaseBurgerSuccess = (id) => {
-  return {
-    type: actionTypes.MOVIE_ADD_TO_FAVORITE,
-    id: id,
-
-  }
-};
