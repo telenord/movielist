@@ -6,13 +6,7 @@ const initialState = fromJS({
 });
 
 const movieAddToFavorite = (state, action)=>{
-  // return { ...state,
-  //   movie: {
-  //     ...state.movie,
-  //     favorite: true,
-  //   },
-  //   favoriteList: [...state.favoriteList, action.id ]
-  // }
+
   return state.set(
     'favoriteList', state.get('favoriteList').push(action.id)
   )
