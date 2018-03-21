@@ -6,3 +6,11 @@ export {
   fetchMovieFail,
   fetchMovieSuccess,
 } from './movie'
+
+
+export {
+  fetchMovieListInit,
+  fetchMovieListStart,
+  fetchMovieListFail,
+  fetchMovieListSuccess,
+} from './movieList'

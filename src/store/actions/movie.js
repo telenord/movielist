@@ -4,7 +4,6 @@ export const addMovieToFavorite = (id) => {
   return {
     type: actionTypes.MOVIE_ADD_TO_FAVORITE,
     id: id,
-
   }
 };
 

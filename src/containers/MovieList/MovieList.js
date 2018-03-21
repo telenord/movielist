@@ -7,84 +7,52 @@ import { FontIcon, IconButton, List, ListItem } from 'material-ui';
 import * as classes  from './MovieList.css';
 import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
+import { makeSelectMovie, makeSelectMoviesList, makeSelectMoviesListWithFavor } from '../../store/selectors';
+import { createStructuredSelector } from "reselect";
 
 class MovieList extends Component {
-  state = {
-    movieList: [
-      {id: 1, title: 'name1'},
-      {id: 2, title: 'name2'},
-    ],
-    isLoading:false,
-    page:1,
-    isNotLastPage: false
-  };
-
 
   componentDidMount() {
-    //this.props.onInitIngerdients();
-    const url = getUrl('/movie/popular');
-
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          movieList: res.results,
-          page: ++this.state.page,
-          isNotLastPage: this.state.page > 5
-        })
-      })
+    this.props.onMovieListInit();
    // this.loadFunc();
-
-
   }
-  loadFunc =()=>{
+
+  loadFunc(){
     const url = getUrl('/movie/popular', `page=${this.state.page}`);
-    //const url = getUrl('/movie/popular');
+  };
 
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
+  handleClick(movie){
 
-        this.setState({
-          movieList: res.results,
-          page: ++this.state.page,
-          isNotLastPage: this.state.page > 5,
-          isLoading: false
-        });
-        console.log(this.state.page, this.state.isNotLastPage);
-
-      })
-
-  }
-  handleClick(id){
-    this.props.onAddMovieToFavorite(id);
-    console.log('handleClick', id);
+    movie.isFavorite ? this.props.onRemoveMovieFromFavorite(movie.id): this.props.onAddMovieToFavorite(movie.id);
+    console.log('handleClick', movie);
   }
 
   render() {
-    let favorIcon =(id)=> (
+    const { movieList } = this.props;
+
+    let favorIcon =(movie)=> (
       <IconButton
-        // tooltip={this.props.movie.favorite ? 'Remove from favourite' : 'Add to favourite'}
-        onClick={() => this.handleClick(id)}
+         tooltip={movie.isFavorite ? 'Remove from favourite' : 'Add to favourite'}
+        onClick={() => this.handleClick(movie)}
         style={{color:'red'}}
       >
         <FontIcon
-          className="material-icons icon__favorite"
+          //className="material-icons icon__favorite"
           style={{color:'red'}}
-         // className={this.props.movie.favorite ? 'material-icons icon__favorite' : ' material-icons icon__favorite_border'}
+          className={movie.isFavorite ? 'material-icons icon__favorite' : ' material-icons icon__favorite_border'}
            >
-           favorite
+          {movie.isFavorite ? 'favorite' : 'favorite_border'}
         </FontIcon>;
       </IconButton>
     );
 
-    let movieList = null ;
-    if(this.state.movieList && this.state.movieList.length){
+    let movies = null ;
+    if(movieList && movieList.length){
 
-      movieList = (this.state.movieList.map(m => {
+      movies = (movieList.map(m => {
         return (
 
-            <ListItem  key={m.id} leftIcon={favorIcon(m.id)}>
+            <ListItem  key={m.id} leftIcon={favorIcon(m)}>
               <Link className="MovieListLink"  to={`/movie/${m.id}`}> {m.title}</Link>
             </ListItem>
 
@@ -113,18 +81,30 @@ class MovieList extends Component {
 
             {/*{movieList}*/}
           {/*</InfiniteScroll>*/}
-          {movieList}
+          {movies}
         </List>
       </div>
     )
   }
 }
+const mapStateToProps = state => {
+  // return {
+  //   movie: state.currentMovie.movie,
+  // }
+  return createStructuredSelector({
+    movieList: makeSelectMoviesListWithFavor(),
+
+    // movieIsFavorite:makeSelectFavorite()
+  });
+};
+
 
 const mapDispatchToProps = dispatch => {
   return {
+    onMovieListInit: () => dispatch(actions.fetchMovieListInit()),
     onAddMovieToFavorite: (id) => dispatch(actions.addMovieToFavorite(id)),
     onRemoveMovieFromFavorite: (id) => dispatch(actions.removeMovieFromFavorite(id)),
   }
 };
 
-export default connect(null, mapDispatchToProps)(MovieList);
+export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

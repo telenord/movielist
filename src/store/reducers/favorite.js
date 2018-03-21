@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { fromJS, List } from "immutable";
 
 const initialState = fromJS({
-  favoriteList: [],
+  favoriteList: [337167],
 });
 
 const movieAddToFavorite = (state, action)=>{
@@ -18,17 +18,11 @@ const movieAddToFavorite = (state, action)=>{
   )
 };
 const removeMovieFromFavorite = (state, action)=>{
-  // return {
-  //   ...state,
-  //   movie: {
-  //     ...state.movie,
-  //     favorite: false,
-  //   },
-  //   favoriteList: state.favoriteList.filter(id=>{
-  //     return id !== action.id
-  //   }) };
+
+  const index = state.get('favoriteList').findIndex((i)=>i===action.id);
+
   return state.set(
-    'favoriteList', state.get('favoriteList').delete(action.id)
+    'favoriteList', state.get('favoriteList').delete(index)
   )
 };
 

@@ -8,11 +8,12 @@ import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 import createSagaMiddleware from 'redux-saga';
-import {watchFetchMovie} from './sagas/';
+import {watchFetchMovie, watchFetchMovieList} from './sagas/';
 
 
 export default function configureStore(initialState = {}, history) {
   const sagaMiddleware = createSagaMiddleware();
+
   const enhancers = [];
   const middleware = [
     thunk,
@@ -39,7 +40,7 @@ export default function configureStore(initialState = {}, history) {
     composedEnhancers,
   );
   sagaMiddleware.run(watchFetchMovie);
-
+  sagaMiddleware.run(watchFetchMovieList);
 
   return store;
 }

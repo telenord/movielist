@@ -11,8 +11,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import { createStructuredSelector } from "reselect";
 import {
-  makeSelectFavorite, makeSelectFavoriteList, makeSelectMovie,
-  makeSelectMovieIsFavorite
+  makeSelectMovie, makeSelectMovieWithFavor,
+
 } from '../../store/selectors';
 
 
@@ -35,7 +35,7 @@ class Movie extends Component {
         open: true
       }
     });
-    this.props.movieIsFavorite ? this.props.onRemoveMovieFromFavorite(id) : this.props.onAddMovieToFavorite(id);
+    this.props.movie.isFavorite ? this.props.onRemoveMovieFromFavorite(id) : this.props.onAddMovieToFavorite(id);
   };
 
   handleRequestClose = () => {
@@ -48,8 +48,9 @@ class Movie extends Component {
   };
 
   render() {
+    const {isFavorite} = this.props.movie;
     if(this.props.movie){
-      console.log('props.movieIsFavorite', this.props.movieIsFavorite);
+      console.log('props.isFavorite', this.props.movie);
     }
 
     const iconStyles = {
@@ -59,13 +60,13 @@ class Movie extends Component {
     let genres = null;
     let favorIcon =  (
       <IconButton
-        tooltip={this.props.movieIsFavorite ? 'Remove from favourite' : 'Add to favourite'}
+        tooltip={this.props.movie.isFavorite ? 'Remove from favourite' : 'Add to favourite'}
         style={iconStyles}
         onClick={() => this.handleClick(this.props.movie.id)}>
         <FontIcon
-          className= {this.props.movieIsFavorite ? 'material-icons icon__favorite' : 'material-icons icon__favorite_border'}
+          className= {this.props.movie.isFavorite ? 'material-icons icon__favorite' : 'material-icons icon__favorite_border'}
            style={iconStyles}
-        >{this.props.movieIsFavorite ? 'favorite' : 'favorite_border'}
+        >{this.props.movie.isFavorite ? 'favorite' : 'favorite_border'}
         </FontIcon>;
       </IconButton>
     );
@@ -112,8 +113,8 @@ const mapStateToProps = state => {
   //   movie: state.currentMovie.movie,
   // }
   return createStructuredSelector({
-    movie: makeSelectMovie(),
-   movieIsFavorite: makeSelectMovieIsFavorite(),
+    movie: makeSelectMovieWithFavor(),
+  // movieIsFavorite: makeSelectMovieIsFavorite(),
    // movieIsFavorite:makeSelectFavorite()
   });
 };

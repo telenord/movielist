@@ -4,7 +4,10 @@ import { movieSchema } from '../schemas';
 import Immutable, { fromJS } from 'immutable';
 
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  movie:{},
+  isFavorite: false
+});
 
 const movieAddToFavorite = (state, action)=>{
   return { ...state,
