@@ -5,6 +5,8 @@ import { FontIcon, IconButton, List, ListItem } from 'material-ui';
 //import InfiniteScroll  from 'react-simple-infinite-scroll';
 
 import * as classes  from './MovieList.css';
+import * as actions from '../../store/actions';
+import { connect } from 'react-redux';
 
 class MovieList extends Component {
   state = {
@@ -54,8 +56,9 @@ class MovieList extends Component {
       })
 
   }
-  handleClick(e){
-    console.log('handleClick', e);
+  handleClick(id){
+    this.props.onAddMovieToFavorite(id);
+    console.log('handleClick', id);
   }
 
   render() {
@@ -117,4 +120,11 @@ class MovieList extends Component {
   }
 }
 
-export default MovieList;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddMovieToFavorite: (id) => dispatch(actions.addMovieToFavorite(id)),
+    onRemoveMovieFromFavorite: (id) => dispatch(actions.removeMovieFromFavorite(id)),
+  }
+};
+
+export default connect(null, mapDispatchToProps)(MovieList);

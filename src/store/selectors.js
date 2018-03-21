@@ -9,30 +9,10 @@ const makeSelectMovie = () =>createSelector(
 
 //
  const makeSelectFavorite = () => state => state.get('favoriteList');
-// const makeSelectFavoriteList =() => createSelector(
-//   makeSelectFavorite(),
-//   state => state.get('favoriteList'),
-// );
 
-// const makeSelectFavorite = () =>{
-//   state => console.log(state) ;
-//
-//   return createSelector(
-//     makeSelectCurrentMovie(),
-//   state => state.get('movie'),
-// );
-//
-// }
-const makeSelectMovieIsFavorite = () =>{
-  let z = makeSelectFavorite();
-  console.log(z());
-
-  return createSelector(
-    makeSelectFavorite(),
-   // makeSelectFavoriteList(),
-    //state => state.set()
-  );
-};
+const makeSelectMovieIsFavorite = () => createSelector(
+  makeSelectFavorite(),
+);
 // makeSelectMovieIsFavorite()
 
 
