@@ -1,23 +1,29 @@
 import { createSelector } from 'reselect';
 
 const makeSelectCurrentMovie = () => state => state.get('currentMovie');
+
 const makeSelectMovie = () =>createSelector(
   makeSelectCurrentMovie(),
     state => state.get('movie'),
 );
+
 const makeSelectMovieWithFavor = () =>createSelector(
   makeSelectFavoriteList(),
   makeSelectMovie(),
   (list, item) => {
+    console.log(item );
     list.map(id => {
-      console.log(id === item.id);
-      item.isFavorite = id === item.id;
 
-    })
+      item.isFavorite = id === item.id;
+    });
     return item;
   }
 );
 
+const makeSelectMovieLoading = () => createSelector(
+  makeSelectCurrentMovie(),
+  state => state.get('loading'),
+);
 
 const makeSelectFavorite = () => state => state.get('favoriteList');
 
@@ -32,13 +38,7 @@ const makeSelectMovies = () =>state => state.get('movieList');
 const makeSelectMoviesList = () => createSelector(
   makeSelectMovies(),
   state => state.get('list'),
-
 );
-
-const log = (a) =>  {
-  console.log(a);
-};
-
 
 const makeSelectMoviesListWithFavor = () => createSelector(
   makeSelectMoviesList(),
@@ -49,10 +49,12 @@ const makeSelectMoviesListWithFavor = () => createSelector(
   })
 );
 
+
 export {
   makeSelectMovie,
   makeSelectMovies,
   makeSelectMoviesList,
   makeSelectMoviesListWithFavor,
-  makeSelectMovieWithFavor
+  makeSelectMovieWithFavor,
+  makeSelectMovieLoading
 };

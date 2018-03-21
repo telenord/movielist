@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { fromJS, List } from "immutable";
+import { fromJS } from "immutable";
 
 const initialState = fromJS({
   favoriteList: [337167],

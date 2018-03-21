@@ -10,11 +10,7 @@ import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import { createStructuredSelector } from "reselect";
-import {
-  makeSelectMovie, makeSelectMovieWithFavor,
-
-} from '../../store/selectors';
-
+import { makeSelectMovieLoading, makeSelectMovieWithFavor } from '../../store/selectors';
 
 class Movie extends Component {
   state = {
@@ -48,55 +44,56 @@ class Movie extends Component {
   };
 
   render() {
-    const {isFavorite} = this.props.movie;
-    if(this.props.movie){
-      console.log('props.isFavorite', this.props.movie);
+    if(this.props.loading){
+      return <a>SPINNER</a>;
     }
+
+    const {isFavorite, tagline, genres, title, backdrop_path, status, overview, id} = this.props.movie;
 
     const iconStyles = {
       marginRight: 24,
-
     };
-    let genres = null;
+
+    let genresList = null;
     let favorIcon =  (
       <IconButton
-        tooltip={this.props.movie.isFavorite ? 'Remove from favourite' : 'Add to favourite'}
+        tooltip={isFavorite ? 'Remove from favourite' : 'Add to favourite'}
         style={iconStyles}
-        onClick={() => this.handleClick(this.props.movie.id)}>
+        onClick={() => this.handleClick(id)}>
         <FontIcon
-          className= {this.props.movie.isFavorite ? 'material-icons icon__favorite' : 'material-icons icon__favorite_border'}
+          className= { isFavorite ? 'material-icons icon__favorite' : 'material-icons icon__favorite_border'}
            style={iconStyles}
-        >{this.props.movie.isFavorite ? 'favorite' : 'favorite_border'}
+        >{ isFavorite ? 'favorite' : 'favorite_border'}
         </FontIcon>;
       </IconButton>
     );
 
     if (this.props.movie && this.props.movie.genres && this.props.movie.genres.length) {
-      genres = <Genres genres={this.props.movie.genres}/>
+      genresList = <Genres genres={genres}/>
     }
 
     if(this.props.movie) {
       return (
         <Card>
           <CardMedia
-            overlay={<CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>}>
-            <img src={IMAGE_BASE_URL + this.props.movie.backdrop_path} alt={this.props.movie.title}/>
+            overlay={<CardTitle title={title} subtitle={tagline}/>}>
+            <img src={IMAGE_BASE_URL + backdrop_path} alt={title}/>
           </CardMedia>
-          <CardTitle title={this.props.movie.title} subtitle={this.props.movie.tagline}/>
+          <CardTitle title={title} subtitle={tagline}/>
           <CardText>
             {favorIcon}
             <div>
-              <p><strong> Status: </strong>{this.props.movie.status}</p>
+              <p><strong> Status: </strong>{status}</p>
             </div>
             <div>
-              {genres}
+              {genresList}
             </div>
-            {this.props.movie.overview}
+            {overview}
           </CardText>
           <Snackbar
             open={this.state.snackbar.open}
-            message={this.props.movieIsFavorite ?
-              `${this.props.movie.title} added to your Favorites` : `${this.props.movie.title} removed from Favorites`}
+            message={isFavorite ?
+              `${title} added to your Favorites` : `${title} removed from Favorites`}
             autoHideDuration={4000}
             onRequestClose={this.handleRequestClose}
           />
@@ -109,13 +106,9 @@ class Movie extends Component {
 }
 
 const mapStateToProps = state => {
-  // return {
-  //   movie: state.currentMovie.movie,
-  // }
   return createStructuredSelector({
     movie: makeSelectMovieWithFavor(),
-  // movieIsFavorite: makeSelectMovieIsFavorite(),
-   // movieIsFavorite:makeSelectFavorite()
+    loading: makeSelectMovieLoading(),
   });
 };
 
