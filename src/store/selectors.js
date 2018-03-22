@@ -41,7 +41,6 @@ const makeSelectMoviesListWithFavor = () => createSelector(
   makeSelectMoviesList(),
   makeSelectFavoriteList(),
   (list, favoriteList) => list.map(movie => {
-    console.log(favoriteList.includes(movie.id));
     movie.isFavorite = favoriteList.includes(movie.id);
     return movie;
   })

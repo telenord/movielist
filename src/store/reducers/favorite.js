@@ -5,7 +5,6 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
   favoriteList: [337167],
 });
-console.log(initialState);
 
 const movieAddToFavorite = (state, action) => {
 

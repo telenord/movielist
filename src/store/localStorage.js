@@ -1,21 +1,26 @@
-export const loadState = () => {
-  try {
-    const serializedState = localStorage.getItem('favoriteList');
-    if (serializedState === null) {
-      return undefined;
+import persistState from 'redux-localstorage';
+import { fromJS } from 'immutable';
+
+export const persistLocalStorage = () => (persistState('favoriteList', {
+    key: 'favoriteList',
+    serialize(subset) {
+      return JSON.stringify(subset.toJS());
+    },
+    slicer(paths) {
+      return (state) => {
+        return state.get(paths);
+      }
+    },
+    deserialize(favoriteList) {
+      if (favoriteList) {
+        return fromJS(JSON.parse(favoriteList))
+      }
+    },
+    merge(initialState, favoriteList) {
+      if (favoriteList) {
+        return initialState.set('favoriteList', favoriteList);
+      }
+      return initialState;
     }
-    return JSON.parse(serializedState);
-  } catch (err) {
-    return undefined;
-  }
-};
-
-export const saveState = (state) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
-  } catch (err) {
-    console.log('err', err);
-  }
-};
-
+  })
+);

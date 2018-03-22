@@ -7,42 +7,17 @@ import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
-import persistState from 'redux-localstorage'
+
 import createSagaMiddleware from 'redux-saga';
 import { watchFetchMovie, watchFetchMovieList } from './sagas/';
-
+import { persistLocalStorage } from './localStorage';
 
 
 export default function configureStore(initialState = {}, history) {
   const sagaMiddleware = createSagaMiddleware();
 
   const enhancers = [
-    persistState('favoriteList', {
-      key: 'favoriteList', serialize(subset) {
-        return JSON.stringify(subset.toJS());
-      },
-      slicer(paths) {
-        return (state) => {
-          return state.get(paths);
-        }
-      },
-      deserialize(favoriteList){
-
-        if (favoriteList){
-          console.log(favoriteList);
-          return fromJS(JSON.parse(favoriteList))
-        }
-      },
-      merge(initialState, favoriteList) {
-        console.log('merge',favoriteList);
-        if(favoriteList){
-          console.log(favoriteList );
-          return initialState.set('favoriteList', favoriteList)//.getItem('favoriteList'));
-        }
-        return initialState;
-      }
-
-    })
+    persistLocalStorage()
   ];
   const middleware = [
     thunk,
