@@ -2,18 +2,16 @@ import { createSelector } from 'reselect';
 
 const makeSelectCurrentMovie = () => state => state.get('currentMovie');
 
-const makeSelectMovie = () =>createSelector(
+const makeSelectMovie = () => createSelector(
   makeSelectCurrentMovie(),
-    state => state.get('movie'),
+  state => state.get('movie'),
 );
 
-const makeSelectMovieWithFavor = () =>createSelector(
+const makeSelectMovieWithFavor = () => createSelector(
   makeSelectFavoriteList(),
   makeSelectMovie(),
   (list, item) => {
-    console.log(item );
     list.map(id => {
-
       item.isFavorite = id === item.id;
     });
     return item;
@@ -32,8 +30,7 @@ const makeSelectFavoriteList = () => createSelector(
   state => state.get('favoriteList')
 );
 
-
-const makeSelectMovies = () =>state => state.get('movieList');
+const makeSelectMovies = () => state => state.get('movieList');
 
 const makeSelectMoviesList = () => createSelector(
   makeSelectMovies(),
@@ -43,8 +40,9 @@ const makeSelectMoviesList = () => createSelector(
 const makeSelectMoviesListWithFavor = () => createSelector(
   makeSelectMoviesList(),
   makeSelectFavoriteList(),
-  (list, favoriteList) => list.map(movie =>{
-    movie.isFavorite =favoriteList.includes(movie.id);
+  (list, favoriteList) => list.map(movie => {
+    console.log(favoriteList.includes(movie.id));
+    movie.isFavorite = favoriteList.includes(movie.id);
     return movie;
   })
 );

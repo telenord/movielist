@@ -7,29 +7,20 @@ import './index.css';
 import App from './App'
 
 import configureStore from './store/store';
+//import { saveState } from './store/localStorage';
 
 
 const initialState = {};
 
 const store = configureStore(initialState);
 
+console.log('store', store.getState());
 
+// store.subscribe(()=>{
+//   // console.log(store.getState('favoriteList').get('favoriteList').toJS());
+//   favoriteList: saveState(store.getState('favoriteList').get('favoriteList').toJS());
+// });
 
-
-
-
-
-// const sagaMiddleware = createSagaMiddleware();
-//
-// const enhancer = composeEnhancers(
-//   applyMiddleware(thunk, sagaMiddleware),
-//   //TODO redux-localstorage
-//   // persistState(/*paths, config*/),
-// );
-//
-//
-// const sagaMiddleware = createSagaMiddleware();
-// sagaMiddleware.run(watchFetchMovie);
 
 const app= (
   <Provider store={store}>

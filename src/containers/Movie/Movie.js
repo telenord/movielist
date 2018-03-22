@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { IMAGE_BASE_URL } from '../../shared/moviedb';
 import { withRouter } from 'react-router';
 import {
-  Card, CardMedia, CardText, CardTitle, IconButton,  Snackbar
+  Card, CardMedia, CardText, CardTitle, IconButton, Snackbar
 } from 'material-ui';
 import Genres from '../../components/Genres/Genres';
 import FontIcon from 'material-ui/FontIcon';
@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import { createStructuredSelector } from "reselect";
 import { makeSelectMovieLoading, makeSelectMovieWithFavor } from '../../store/selectors';
+import Spinner from '../../components/Spinner/Spinner';
 
 class Movie extends Component {
   state = {
@@ -44,8 +45,8 @@ class Movie extends Component {
   };
 
   render() {
-    if(this.props.loading){
-      return <a>SPINNER</a>;
+    if (this.props.loading) {
+      return <Spinner/>;
     }
 
     const {isFavorite, tagline, genres, title, backdrop_path, status, overview, id} = this.props.movie;
@@ -55,24 +56,24 @@ class Movie extends Component {
     };
 
     let genresList = null;
-    let favorIcon =  (
+    let favorIcon = (
       <IconButton
         tooltip={isFavorite ? 'Remove from favourite' : 'Add to favourite'}
         style={iconStyles}
         onClick={() => this.handleClick(id)}>
         <FontIcon
-          className= { isFavorite ? 'material-icons icon__favorite' : 'material-icons icon__favorite_border'}
-           style={iconStyles}
-        >{ isFavorite ? 'favorite' : 'favorite_border'}
+          className={isFavorite ? 'material-icons icon__favorite' : 'material-icons icon__favorite_border'}
+          style={iconStyles}
+        >{isFavorite ? 'favorite' : 'favorite_border'}
         </FontIcon>;
       </IconButton>
     );
 
-    if (this.props.movie && this.props.movie.genres && this.props.movie.genres.length) {
+    if (genres && genres.length) {
       genresList = <Genres genres={genres}/>
     }
 
-    if(this.props.movie) {
+    if (this.props.movie) {
       return (
         <Card>
           <CardMedia
@@ -111,7 +112,6 @@ const mapStateToProps = state => {
     loading: makeSelectMovieLoading(),
   });
 };
-
 
 
 const mapDispatchToProps = dispatch => {
