@@ -9,12 +9,17 @@ import Genres from '../../components/Genres/Genres';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import { createStructuredSelector } from "reselect";
-import { makeSelectMovieLoading, makeSelectMovieWithFavor } from '../../store/selectors';
+import {
+  makeSelectMovieLoading, makeSelectMovieWithFavor, makeSelectRecommendMoviesList, makeSelectRecommendMoviesLoading,
+  makeSelectSimilarMoviesList,
+  makeSelectSimilarMoviesLoading
+} from '../../store/selectors';
 import Spinner from '../../components/Spinner/Spinner';
 import {
   Grid, Row, Col
 } from 'react-bootstrap/';
 import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
+import ItemsList from '../../components/ItemsList/ItemsList';
 
 class Movie extends Component {
   state = {
@@ -67,7 +72,7 @@ class Movie extends Component {
               <Col xs={12} md={6}>
                 <CardTitle title={title} subtitle={tagline}/>
                 <CardText>
-                  <FavoriteButton isFavorite={isFavorite} click={()=>this.handleClick(id)}/>
+                  <FavoriteButton isFavorite={isFavorite} click={() => this.handleClick(id)}/>
                   <div>
                     <p><strong> Status: </strong>{status}</p>
                   </div>
@@ -79,7 +84,18 @@ class Movie extends Component {
               </Col>
             </Row>
           </Card>
-          <Row></Row>
+          <Row>
+            <Col xs={12}>
+              <h2>Similar Movies</h2>
+              <ItemsList items={this.props.similarList} loading={this.props.similarListLoading}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <h2>Recommend Movies</h2>
+              <ItemsList items={this.props.recommendList} loading={this.props.recommendListLoading}/>
+            </Col>
+          </Row>
           <Snackbar
             open={this.state.snackbar.open}
             message={isFavorite ?
@@ -99,6 +115,11 @@ const mapStateToProps = state => {
   return createStructuredSelector({
     movie: makeSelectMovieWithFavor(),
     loading: makeSelectMovieLoading(),
+    similarList: makeSelectSimilarMoviesList(),
+    similarListLoading: makeSelectSimilarMoviesLoading(),
+    recommendList: makeSelectRecommendMoviesList(),
+    recommendListLoading: makeSelectRecommendMoviesLoading(),
+
   });
 };
 

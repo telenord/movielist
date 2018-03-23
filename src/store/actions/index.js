@@ -16,12 +16,14 @@ export {
 } from './movieList';
 
 export {
+  fetchSimilarMoviesInit,
   fetchSimilarMoviesStart,
   fetchSimilarMoviesSuccess,
   fetchSimilarMoviesFail
 } from './similar';
 
 export {
+  fetchRecommendMoviesInit,
   fetchRecommendMoviesStart,
   fetchRecommendMoviesSuccess,
   fetchRecommendMoviesFail,

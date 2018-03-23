@@ -44,6 +44,29 @@ const makeSelectMoviesListWithFavor = () => createSelector(
   })
 );
 
+const makeSelectSimilarMovies = () => state => state.get('similar');
+
+const makeSelectSimilarMoviesLoading = () => createSelector(
+  makeSelectSimilarMovies(),
+  state => state.get('loading'),
+);
+
+const makeSelectSimilarMoviesList = () => createSelector(
+  makeSelectSimilarMovies(),
+  state => state.get('similarList'),
+);
+
+const makeSelectRecommendMovies = () => state => state.get('recommend');
+
+const makeSelectRecommendMoviesLoading = () => createSelector(
+  makeSelectRecommendMovies(),
+  state => state.get('loading'),
+);
+
+const makeSelectRecommendMoviesList = () => createSelector(
+  makeSelectRecommendMovies(),
+  state => state.get('recommendList'),
+);
 
 export {
   makeSelectMovie,
@@ -51,5 +74,12 @@ export {
   makeSelectMoviesList,
   makeSelectMoviesListWithFavor,
   makeSelectMovieWithFavor,
-  makeSelectMovieLoading
+  makeSelectMovieLoading,
+  makeSelectSimilarMovies,
+  makeSelectSimilarMoviesList,
+  makeSelectSimilarMoviesLoading,
+  makeSelectRecommendMovies,
+  makeSelectRecommendMoviesList,
+  makeSelectRecommendMoviesLoading,
+
 };

@@ -9,6 +9,9 @@ export function* fetchMovieSaga(action) {
 
   yield put(actions.fetchMovieStart());
 
+  yield put(actions.fetchSimilarMoviesInit(action.id));
+  yield put(actions.fetchRecommendMoviesInit(action.id));
+
   try {
     const response = yield axios.get(url);
     yield put(actions.fetchMovieSuccess(response.data));
