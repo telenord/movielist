@@ -4,3 +4,12 @@
 .icon__favorite{
   color: red;
 }
+.FavoriteButton{
+  position: absolute;
+  left: 34px;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+}

@@ -11,9 +11,7 @@ const makeSelectMovieWithFavor = () => createSelector(
   makeSelectFavoriteList(),
   makeSelectMovie(),
   (list, item) => {
-    list.map(id => {
-      item.isFavorite = id === item.id;
-    });
+    item.isFavorite = list.includes(item.id);
     return item;
   }
 );

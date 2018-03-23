@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getUrl } from '../../shared/moviedb';
 import { Link } from 'react-router-dom';
-import { FontIcon, IconButton, List, ListItem } from 'material-ui';
+import { List, ListItem } from 'material-ui';
 //import InfiniteScroll  from 'react-simple-infinite-scroll';
 
 import * as classes from './MovieList.css';
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { makeSelectMoviesListWithFavor } from '../../store/selectors';
 import { createStructuredSelector } from 'reselect';
 import Spinner from '../../components/Spinner/Spinner';
+import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
 
 class MovieList extends Component {
 
@@ -32,31 +33,17 @@ class MovieList extends Component {
     }
     const {movieList} = this.props;
 
-    let favorIcon = (movie) => (
-      <IconButton
-        tooltip={movie.isFavorite ? 'Remove from favourite' : 'Add to favourite'}
-        onClick={() => this.handleClick(movie)}
-        style={{color: 'red'}}
-      >
-        <FontIcon
-          style={{color: 'red'}}
-          className={movie.isFavorite ? 'material-icons icon__favorite' : ' material-icons icon__favorite_border'}
-        >
-          {movie.isFavorite ? 'favorite' : 'favorite_border'}
-        </FontIcon>;
-      </IconButton>
+    const favorIcon = (movie) => (
+      <FavoriteButton className="FavoriteButton" isFavorite={movie.isFavorite} click={()=>this.handleClick(movie)}/>
     );
 
     let movies = null;
     if (movieList && movieList.length) {
-
-      movies = (movieList.map(m => {
+      movies = (movieList.map(movie => {
         return (
-
-          <ListItem key={m.id} leftIcon={favorIcon(m)}>
-            <Link className="MovieListLink" to={`/movie/${m.id}`}> {m.title}</Link>
+          <ListItem key={movie.id} leftIcon={favorIcon(movie)}>
+            <Link className="MovieListLink" to={`/movie/${movie.id}`}>{movie.title}</Link>
           </ListItem>
-
         );
       }));
     }

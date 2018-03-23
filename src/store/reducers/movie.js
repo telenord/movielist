@@ -26,7 +26,6 @@ const reducer = (state = initialState, action) => {
       return movieFetchStart(state, action);
     case actionTypes.MOVIE_FETCH_SUCCESS:
       return movieFetchSuccess(state, action);
-
     default:
       return state;
   }

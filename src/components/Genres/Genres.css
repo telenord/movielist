@@ -1,0 +1,8 @@
+.GenresWrapper{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.GenresChip{
+  margin: 4px!important;
+}

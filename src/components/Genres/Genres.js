@@ -1,28 +1,20 @@
 import React from 'react';
 import { Chip } from 'material-ui';
-
-const styles = {
-  chip: {
-    margin: 4,
-  },
-  wrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-  },
-};
+import * as classes from './Genres.css';
 
 const genres = (props) => {
-  const genresList = props.genres.map(genre => {
-    return <Chip className="Genre" key={genre.id} style={styles.chip}>{genre.name}</Chip>
-  });
-
+  let genresList = null;
+  if (props.genres && props.genres.length) {
+    genresList = props.genres.map(genre => {
+      return <Chip className="GenresChip" key={genre.id}>{genre.name}</Chip>
+    });
+  }
   return (
-    <div style={styles.wrapper}>
+    <div className="GenresWrapper">
       <strong> Genres: </strong>
-      <div className="Genres" style={styles.wrapper}>
-      {genresList}
-    </div>
+      <div className="GenresWrapper">
+        {genresList}
+      </div>
     </div>
   )
 };

@@ -5,7 +5,7 @@ export {
   fetchMovieStart,
   fetchMovieFail,
   fetchMovieSuccess,
-} from './movie'
+} from './movie';
 
 
 export {
@@ -13,4 +13,17 @@ export {
   fetchMovieListStart,
   fetchMovieListFail,
   fetchMovieListSuccess,
-} from './movieList'
+} from './movieList';
+
+export {
+  fetchSimilarMoviesStart,
+  fetchSimilarMoviesSuccess,
+  fetchSimilarMoviesFail
+} from './similar';
+
+export {
+  fetchRecommendMoviesStart,
+  fetchRecommendMoviesSuccess,
+  fetchRecommendMoviesFail,
+} from './recommend';
+
