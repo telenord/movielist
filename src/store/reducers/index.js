@@ -5,6 +5,7 @@ import favoriteReducer from './favorite';
 import movieListReducer from './movieList';
 import similarReducer from './similar';
 import recommendReducer from './recommend';
+import genresReducer from './genres';
 
 export default combineReducers({
   movieList: movieListReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   favoriteList: favoriteReducer,
   similar: similarReducer,
   recommend: recommendReducer,
+  genres: genresReducer
 });

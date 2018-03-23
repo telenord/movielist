@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
 import createSagaMiddleware from 'redux-saga';
-import { watchFetchMovie, watchFetchMovieList } from './sagas/';
+import * as sagas from './sagas';
 import { persistLocalStorage } from './localStorage';
 
 
@@ -44,8 +44,9 @@ export default function configureStore(initialState = {}, history) {
     composedEnhancers,
   );
 
-  sagaMiddleware.run(watchFetchMovie);
-  sagaMiddleware.run(watchFetchMovieList);
+  Object.keys(sagas).map(sagaName => {
+    sagaMiddleware.run(sagas[sagaName]);
+  });
 
   return store;
 }

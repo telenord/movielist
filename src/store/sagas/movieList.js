@@ -17,3 +17,5 @@ export function* fetchMovieListSaga() {
     yield put(actions.fetchMovieListFail(error));
   }
 }
+
+

@@ -40,19 +40,3 @@ export const fetchMovieFail = (error) => {
     error: error
   }
 };
-
-
-
-export const fetchRecommendMoviesSuccess = (movie) => {
-  return {
-    type: actionTypes.RECOMMEND_MOVIES_FETCH_SUCCESS,
-    movie : movie
-  }
-};
-
-export const fetchRecommendMoviesFail = (error) => {
-  return {
-    type: actionTypes.RECOMMEND_MOVIES_FETCH_FAIL,
-    error: error
-  }
-};

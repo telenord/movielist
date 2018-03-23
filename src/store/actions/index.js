@@ -27,3 +27,10 @@ export {
   fetchRecommendMoviesFail,
 } from './recommend';
 
+
+export {
+  fetchGenreListInit,
+  fetchGenreListStart,
+  fetchGenreListFail,
+  fetchGenreListSuccess,
+} from './genres';
