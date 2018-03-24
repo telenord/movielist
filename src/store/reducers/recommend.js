@@ -5,21 +5,27 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
   recommendList: [],
   loading: false,
+  error: null
 });
 
 const recommendMoviesFetchStart = (state, action) => {
   return state
-    .set('loading', true)
+  .set('loading', true)
+  .set('error', null)
 };
 
 
 const recommendMoviesFetchSuccess = (state, action) => {
-  console.log(action);
   return state
-    .set('loading', false)
-    .set('recommendList', action.data.results)
+  .set('loading', false)
+  .set('recommendList', action.data.results)
 };
 
+const recommendMoviesFetchFail = (state, action) => {
+  return state
+  .set('loading', false)
+  .set('error', action.data.error)
+};
 
 const recommendReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -27,6 +33,8 @@ const recommendReducer = (state = initialState, action) => {
       return recommendMoviesFetchStart(state, action);
     case actionTypes.RECOMMEND_MOVIES_FETCH_SUCCESS:
       return recommendMoviesFetchSuccess(state, action);
+    case actionTypes.RECOMMEND_MOVIES_FETCH_FAIL:
+      return recommendMoviesFetchFail(state, action);
     default:
       return state;
   }

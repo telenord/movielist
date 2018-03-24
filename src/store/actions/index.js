@@ -13,6 +13,7 @@ export {
   fetchMovieListStart,
   fetchMovieListFail,
   fetchMovieListSuccess,
+  searchMovieListInit,
 } from './movieList';
 
 export {

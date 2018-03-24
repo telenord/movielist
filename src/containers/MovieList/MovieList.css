@@ -1,5 +1,10 @@
 .MovieListLink{
   text-decoration: none;
+  margin-right: 20px;
+}
+.MovieListItem div div{
+  display: flex;
+  align-items: center;
 }
 .icon__favorite{
   color: red;

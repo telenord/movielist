@@ -1,7 +1,5 @@
 import React from 'react';
 import { GridList, GridTile } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Spinner from '../Spinner/Spinner';
 import { IMAGE_BASE_URL } from '../../shared/moviedb';
 
@@ -36,7 +34,7 @@ const itemsList = (props) => {
           titleStyle={styles.titleStyle}
           titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
         >
-          <img src={IMAGE_BASE_URL + tile.backdrop_path}/>
+          <img src={IMAGE_BASE_URL + tile.backdrop_path} alt={tile.title}/>
         </GridTile>
       ))
     )

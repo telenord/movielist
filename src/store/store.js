@@ -44,7 +44,7 @@ export default function configureStore(initialState = {}, history) {
     composedEnhancers,
   );
 
-  Object.keys(sagas).map(sagaName => {
+  Object.keys(sagas).forEach(sagaName => {
     sagaMiddleware.run(sagas[sagaName]);
   });
 

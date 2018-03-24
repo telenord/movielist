@@ -7,7 +7,8 @@ import {deepOrange500} from 'material-ui/styles/colors'
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles/index';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import Redirect from 'react-router-dom/es/Redirect';
-import { DropDownMenu, FontIcon, MenuItem, RaisedButton, Toolbar, ToolbarGroup } from 'material-ui';
+import { DropDownMenu, FontIcon, MenuItem,  Toolbar, ToolbarGroup } from 'material-ui';
+import Home from './containers/Home/Home';
 
 
 class App extends Component {
@@ -59,7 +60,7 @@ class App extends Component {
           </Toolbar>
 
           <Switch>
-            <Route path='/' exact component={MovieList}/>
+            <Route path='/' exact component={Home}/>
             <Route path='/movie/:id' component={Movie}/>
             <Route path='/404' exact component={PageNotFound}/>
             <Redirect from='*' to='/404'/>

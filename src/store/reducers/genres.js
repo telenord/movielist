@@ -7,25 +7,27 @@ const initialState = fromJS({
   error: null
 });
 
-const genresFetchStart = (state, action) => {
-  return state.set(
-    'loading', action.genres
-  )
+const genresFetchInit = (state, action) => {
+  return state
+  .set('loading', true)
+  .set('error', null)
 };
 
 const genresFetchSuccess = (state, action) => {
-  return state.set(
-    'genresList', action.genres
-  )
+  return state
+  .set('loading', false)
+  .set('genresList', action.genres.genres)
 };
 const rgenresFetchFail = (state, action) => {
-  return state.set(
-    'genresList', state.get('genresList')
-  )
+  return state
+  .set('loading', false)
+  .set('error', action.error)
 };
 
 const genresReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.GENRES_FETCH_INIT:
+      return genresFetchInit(state, action);
     case actionTypes.GENRES_FETCH_SUCCESS:
       return genresFetchSuccess(state, action);
     case actionTypes.GENRES_FETCH_FAIL:

@@ -5,20 +5,27 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
   similarList: [],
   loading: false,
+  error: null
 });
 
 const similarMoviesFetchStart = (state, action) => {
   return state
-    .set('loading', true)
+  .set('loading', true)
+  .set('error', null)
 };
 
 
 const similarMoviesFetchSuccess = (state, action) => {
   return state
-    .set('loading', false)
-    .set('similarList', action.data.results)
+  .set('loading', false)
+  .set('similarList', action.data.results)
 };
 
+const similarMoviesFetchFail = (state, action) => {
+  return state
+  .set('loading', false)
+  .set('error', action.data.error)
+};
 
 const similarReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -26,6 +33,8 @@ const similarReducer = (state = initialState, action) => {
       return similarMoviesFetchStart(state, action);
     case actionTypes.SIMILAR_MOVIES_FETCH_SUCCESS:
       return similarMoviesFetchSuccess(state, action);
+    case actionTypes.SIMILAR_MOVIES_FETCH_FAIL:
+      return similarMoviesFetchFail(state, action);
     default:
       return state;
   }

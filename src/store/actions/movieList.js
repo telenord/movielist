@@ -26,3 +26,10 @@ export const fetchMovieListFail = (error) => {
     error: error
   }
 };
+
+export const searchMovieListInit = (name) => {
+  return {
+    type: actionTypes.SEARCH_INIT,
+    name: name
+  }
+};

@@ -13,11 +13,11 @@ import {
   makeSelectMovieLoading, makeSelectMovieWithFavor, makeSelectRecommendMoviesList, makeSelectRecommendMoviesLoading,
   makeSelectSimilarMoviesList,
   makeSelectSimilarMoviesLoading
-} from '../../store/selectors';
+} from '../../store/selectors/index';
 import Spinner from '../../components/Spinner/Spinner';
 import {
   Grid, Row, Col
-} from 'react-bootstrap/';
+} from 'react-bootstrap';
 import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
 import ItemsList from '../../components/ItemsList/ItemsList';
 

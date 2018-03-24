@@ -1,7 +1,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
 import { fetchMovieSaga } from './movie';
-import { fetchMovieListSaga } from './movieList';
+import { fetchMovieListSaga, searchMovieListSaga } from './movieList';
 import { fetchGenreListSaga } from './genres';
 import { fetchSimilarMoviesSaga } from './similar';
 import { fetchRecommendMoviesSaga } from './recommend';
@@ -25,4 +25,8 @@ export function* watchFetchRecommendMovies() {
 
 export function* watchFetchGenresList() {
   yield takeEvery(actionTypes.GENRES_FETCH_INIT, fetchGenreListSaga);
+}
+
+export function* watchSearchMovieList() {
+  yield takeEvery(actionTypes.SEARCH_INIT, searchMovieListSaga);
 }

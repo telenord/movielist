@@ -4,7 +4,7 @@ import * as classes from './Genres.css';
 
 const genres = (props) => {
   let genresList = null;
-  if (props.genres && props.genres.length) {
+    if (props.genres && props.genres.length) {
     genresList = props.genres.map(genre => {
       return <Chip className="GenresChip" key={genre.id}>{genre.name}</Chip>
     });
