@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import Spinner from '../../components/Spinner/Spinner';
 
 import { makeSelectMoviesListLoading } from '../../store/selectors/movieList';
-import MovieList from '../MovieList/MovieList';
+import MovieList from '../../components/MovieList/MovieList';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
@@ -24,26 +24,17 @@ class Home extends Component {
   }
 
   handleSearch(event) {
-    const value = event.target.value;
-    this.setState({
-      value: value
-    });
-    this.props.onSearchInit(value);
+    const {value} = event.target;
+    this.setState({value});
+    value === '' ? this.props.onMovieListInit() : this.props.onSearchInit(value);
   }
 
-  handleClick(movie) {
+  handleIconClick(movie) {
     movie.isFavorite ? this.props.onRemoveMovieFromFavorite(movie.id) : this.props.onAddMovieToFavorite(movie.id);
   }
 
   render() {
-    const {movieList} = this.props;
-    let movies = null;
-    if (this.props.loading) {
-      movies = <Spinner/>;
-    }
-    if (movieList && movieList.length) {
-      movies = <MovieList items={movieList}/>;
-    }
+    const {movieList, isLoading} = this.props;
     return (
       <Grid>
         <Row className="show-grid">
@@ -58,7 +49,7 @@ class Home extends Component {
         </Row>
         <Row className="show-grid">
           <Col xs={12}>
-            {movies}
+            {isLoading ? <Spinner/> : <MovieList items={movieList} onIconClick={(e) => this.handleIconClick(e)}/>}
           </Col>
         </Row>
       </Grid>
@@ -68,17 +59,18 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return createStructuredSelector({
-    loading: makeSelectMoviesListLoading(),
+    isLoading: makeSelectMoviesListLoading(),
     movieList: makeSelectMoviesListWithFavor(),
   });
 };
-
 
 const mapDispatchToProps = dispatch => {
   return {
     onMovieListInit: () => dispatch(actions.fetchMovieListInit()),
     onGenresListInit: () => dispatch(actions.fetchGenreListInit()),
     onSearchInit: (val) => dispatch(actions.searchMovieListInit(val)),
+    onAddMovieToFavorite: (id) => dispatch(actions.addMovieToFavorite(id)),
+    onRemoveMovieFromFavorite: (id) => dispatch(actions.removeMovieFromFavorite(id)),
   }
 };
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import MovieList from './containers/MovieList/MovieList';
 import {  Route, Switch } from 'react-router-dom';
 import Movie from './containers/Movie/Movie';
 import {deepOrange500} from 'material-ui/styles/colors'

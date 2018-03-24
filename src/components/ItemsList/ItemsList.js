@@ -1,8 +1,6 @@
 import React from 'react';
 import { GridList, GridTile } from 'material-ui/GridList';
-import Spinner from '../Spinner/Spinner';
 import { IMAGE_BASE_URL } from '../../shared/moviedb';
-import { Link } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -24,13 +22,11 @@ const styles = {
 };
 
 const itemsList = (props) => {
-  let items = null;
-  if (props.loading) {
-    return <Spinner/>;
-  }
+  const {items } = props;
+  let gridItems = <h3>No Items</h3>;
 
-  if(props.items && props.items.length){
-    items=(props.items.map((tile) => (
+  if(items.length){
+    gridItems=(props.items.map((tile) => (
         <GridTile
           key={tile.id}
           title={tile.title}
@@ -48,7 +44,7 @@ const itemsList = (props) => {
     return (
       <div style={styles.root}>
         <GridList style={styles.gridList} cols={2.2}>
-          {items}
+          {gridItems}
         </GridList>
       </div>
     )

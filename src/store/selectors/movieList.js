@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 import { makeSelectFavoriteList } from './favoriteList';
 import { makeSelectGenresList } from './genres';
 
@@ -19,13 +19,8 @@ export const makeSelectMoviesListWithFavor = () => createSelector(
   makeSelectGenresList(),
   (list, favoriteList, genresList) =>
     list.map(movie => {
-      movie.genres = movie.genre_ids.map(id => {
-        if(genresList && genresList.length){
-          return genresList.find(genre => {
-            return genre.id === id;
-          });
-        }
-        return id;
+      movie.genres = genresList.filter(({id}) => {
+        return movie.genre_ids.includes(id);
       });
       movie.isFavorite = favoriteList.includes(movie.id);
       return movie;

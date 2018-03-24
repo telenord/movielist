@@ -17,7 +17,7 @@ export function* fetchMovieSaga(action) {
     yield put(actions.fetchMovieSuccess(response.data));
 
   } catch (error) {
-    yield put(actions.fetchMovieFail(error));
+    yield put(actions.fetchMovieFail(error.response.data));
   }
 }
 

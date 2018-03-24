@@ -18,6 +18,11 @@ const movieFetchSuccess = (state, action) => {
     .set('loading', false)
     .set('movie', action.movie)
 };
+const movieFetchFail = (state, action) => {
+  return state
+  .set('loading', false)
+  .set('error', action.error.response.data)
+};
 
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +31,8 @@ const reducer = (state = initialState, action) => {
       return movieFetchStart(state, action);
     case actionTypes.MOVIE_FETCH_SUCCESS:
       return movieFetchSuccess(state, action);
+    case actionTypes.MOVIE_FETCH_FAIL:
+      return movieFetchFail(state, action);
     default:
       return state;
   }

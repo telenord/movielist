@@ -31,19 +31,18 @@ class Movie extends Component {
   componentWillReceiveProps(nextProps) {
     const locationChanged = nextProps.location !== this.props.location;
     if (locationChanged) {
-      const id = nextProps.match.params.id;
+      const {params: {id}} = this.props.match;
       this.props.onMovieInit(id);
     }
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id;
+    const {params: {id}} = this.props.match;
     this.props.onMovieInit(id);
   }
 
   handleClick = (id) => {
     this.setState({
-      ...this.state,
       snackbar: {
         open: true
       }
@@ -53,7 +52,6 @@ class Movie extends Component {
 
   handleRequestClose = () => {
     this.setState({
-      ...this.state,
       snackbar: {
         open: false
       }
@@ -61,16 +59,17 @@ class Movie extends Component {
   };
 
   itemsListClickHandler(id) {
-    this.props.history.replace(`/movie/${id}`)
+    this.props.history.push(`/movie/${id}`)
   }
 
   render() {
-    if (this.props.loading) {
+    const {similarList, similarListIsLoading, recommendList, recommendListIsLoading, movie ,isLoading} = this.props;
+    const {isFavorite, tagline, genres, title, backdrop_path, status, overview, id} = movie;
+
+    if (isLoading) {
       return <Spinner/>;
     }
-    const {isFavorite, tagline, genres, title, backdrop_path, status, overview, id} = this.props.movie;
-
-    if (this.props.movie) {
+    if (movie) {
       return (
         <Grid>
           <Card>
@@ -99,21 +98,19 @@ class Movie extends Component {
           <Row>
             <Col xs={12}>
               <h2>Similar Movies</h2>
-              <ItemsList
-                items={this.props.similarList}
-                loading={this.props.similarListLoading}
+              {similarListIsLoading ? <Spinner/> : <ItemsList
+                items={similarList}
                 click={(movieId) => this.itemsListClickHandler(movieId)}
-              />
+              />}
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
               <h2>Recommend Movies</h2>
-              <ItemsList
-                items={this.props.recommendList}
-                loading={this.props.recommendListLoading}
+              {recommendListIsLoading ? <Spinner/> : <ItemsList
+                items={recommendList}
                 click={(movieId) => this.itemsListClickHandler(movieId)}
-              />
+              />}
             </Col>
           </Row>
           <Snackbar
@@ -126,7 +123,7 @@ class Movie extends Component {
         </Grid>
       )
     } else {
-      return null;
+      return <h3>Movie not Found</h3>;
     }
   }
 }
@@ -134,12 +131,11 @@ class Movie extends Component {
 const mapStateToProps = state => {
   return createStructuredSelector({
     movie: makeSelectMovieWithFavor(),
-    loading: makeSelectMovieLoading(),
+    isLoading: makeSelectMovieLoading(),
     similarList: makeSelectSimilarMoviesList(),
-    similarListLoading: makeSelectSimilarMoviesLoading(),
+    similarListIsLoading: makeSelectSimilarMoviesLoading(),
     recommendList: makeSelectRecommendMoviesList(),
-    recommendListLoading: makeSelectRecommendMoviesLoading(),
-
+    recommendListIsLoading: makeSelectRecommendMoviesLoading(),
   });
 };
 
