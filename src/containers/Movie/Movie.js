@@ -28,6 +28,14 @@ class Movie extends Component {
     },
   };
 
+  componentWillReceiveProps(nextProps) {
+    const locationChanged = nextProps.location !== this.props.location;
+    if (locationChanged) {
+      const id = nextProps.match.params.id;
+      this.props.onMovieInit(id);
+    }
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.onMovieInit(id);
@@ -51,6 +59,10 @@ class Movie extends Component {
       }
     });
   };
+
+  itemsListClickHandler(id) {
+    this.props.history.replace(`/movie/${id}`)
+  }
 
   render() {
     if (this.props.loading) {
@@ -87,13 +99,21 @@ class Movie extends Component {
           <Row>
             <Col xs={12}>
               <h2>Similar Movies</h2>
-              <ItemsList items={this.props.similarList} loading={this.props.similarListLoading}/>
+              <ItemsList
+                items={this.props.similarList}
+                loading={this.props.similarListLoading}
+                click={(movieId) => this.itemsListClickHandler(movieId)}
+              />
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
               <h2>Recommend Movies</h2>
-              <ItemsList items={this.props.recommendList} loading={this.props.recommendListLoading}/>
+              <ItemsList
+                items={this.props.recommendList}
+                loading={this.props.recommendListLoading}
+                click={(movieId) => this.itemsListClickHandler(movieId)}
+              />
             </Col>
           </Row>
           <Snackbar
