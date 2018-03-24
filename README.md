@@ -1,5 +1,5 @@
 ## Готовое приложение 
-https://react-movies-list.herokuapp.com/(https://react-movies-list.herokuapp.com/)
+https://react-movies-list.herokuapp.com/
 ## Описание
 
 Нужно написать одностраничное приложения для просмотра фильмов с помощью [The Movie Database](https://www.themoviedb.org/) API.
