@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Spinner.css';
+import './Spinner.css';
 
 const name = (props) => (
     <div className='loader'>

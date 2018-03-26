@@ -14,7 +14,6 @@ export const fetchRecommendMoviesStart = () => {
 };
 
 export const fetchRecommendMoviesSuccess = (data) => {
-  console.log(data);
   return {
     type: actionTypes.RECOMMEND_MOVIES_FETCH_SUCCESS,
     data: data

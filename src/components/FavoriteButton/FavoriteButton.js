@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontIcon } from 'material-ui';
-import * as classes from './FavoriteButton.css'
+import './FavoriteButton.css';
 
 const favoriteIcon = (props) => (
   <span

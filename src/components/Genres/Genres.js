@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip } from 'material-ui';
-import * as classes from './Genres.css';
+import './Genres.css';
 
 const genres = (props) => {
   let genresList = null;

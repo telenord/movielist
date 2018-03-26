@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
-import { createStructuredSelector } from 'reselect';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import Genres from '../Genres/Genres';
-import * as classes from './MovieList.css';
+import './MovieList.css';
 
 const MovieList = (props) => {
   const {items} = props;
