@@ -55,11 +55,15 @@ class App extends Component {
 
   render() {
     const {favoriteList} = this.props;
-    const moviesItems = (favoriteList.toJS().map(movie=> {
-      return <MenuItem key={movie.id} primaryText={movie.title}
-                       onClick={() => this.menuClickHandler(movie.id)}/>
+    let moviesItems = <MenuItem primaryText={'No favorite movies yet'}/>;
+    if (favoriteList.size) {
+      moviesItems = (favoriteList.toJS().map(movie => {
+        return <MenuItem key={movie.id} primaryText={movie.title}
+                         onClick={() => this.menuClickHandler(movie.id)}/>
 
-    }));
+      }));
+    }
+
     const btnTitle = (<span className={'d-i-flex'}>
                       <FontIcon
                         style={{color: '#f44336'}}
