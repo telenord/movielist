@@ -30,7 +30,7 @@ class Home extends Component {
   }
 
   handleIconClick(movie) {
-    movie.isFavorite ? this.props.onRemoveMovieFromFavorite(movie.id) : this.props.onAddMovieToFavorite(movie.id);
+    movie.isFavorite ? this.props.onRemoveMovieFromFavorite(movie) : this.props.onAddMovieToFavorite(movie);
   }
 
   render() {
@@ -69,8 +69,8 @@ const mapDispatchToProps = dispatch => {
     onMovieListInit: () => dispatch(actions.fetchMovieListInit()),
     onGenresListInit: () => dispatch(actions.fetchGenreListInit()),
     onSearchInit: (val) => dispatch(actions.searchMovieListInit(val)),
-    onAddMovieToFavorite: (id) => dispatch(actions.addMovieToFavorite(id)),
-    onRemoveMovieFromFavorite: (id) => dispatch(actions.removeMovieFromFavorite(id)),
+    onAddMovieToFavorite: (movie) => dispatch(actions.addMovieToFavorite(movie)),
+    onRemoveMovieFromFavorite: (movie) => dispatch(actions.removeMovieFromFavorite(movie)),
   }
 };
 

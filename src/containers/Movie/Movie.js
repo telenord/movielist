@@ -29,9 +29,9 @@ class Movie extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const locationChanged = nextProps.location !== this.props.location;
+    const locationChanged = nextProps.location.pathname !== this.props.location.pathname;
     if (locationChanged) {
-      const {params: {id}} = this.props.match;
+      const {params: {id}} = nextProps.match;
       this.props.onMovieInit(id);
     }
   }
@@ -41,13 +41,13 @@ class Movie extends Component {
     this.props.onMovieInit(id);
   }
 
-  handleClick = (id) => {
+  handleClick = (movie) => {
     this.setState({
       snackbar: {
         open: true
       }
     });
-    this.props.movie.isFavorite ? this.props.onRemoveMovieFromFavorite(id) : this.props.onAddMovieToFavorite(id);
+    movie.isFavorite ? this.props.onRemoveMovieFromFavorite(movie) : this.props.onAddMovieToFavorite(movie);
   };
 
   handleRequestClose = () => {
@@ -64,7 +64,7 @@ class Movie extends Component {
 
   render() {
     const {similarList, similarListIsLoading, recommendList, recommendListIsLoading, movie ,isLoading} = this.props;
-    const {isFavorite, tagline, genres, title, backdrop_path, status, overview, id} = movie;
+    const {isFavorite, tagline, genres, title, backdrop_path, status, overview, poster_path} = movie;
 
     if (isLoading) {
       return <Spinner/>;
@@ -77,13 +77,13 @@ class Movie extends Component {
               <Col xs={12} md={6}>
                 <CardMedia
                   overlay={<CardTitle title={title} subtitle={tagline}/>}>
-                  <img src={IMAGE_BASE_URL + backdrop_path} alt={title}/>
+                  <img src={IMAGE_BASE_URL + `${backdrop_path ? backdrop_path : poster_path}`} alt={title}/>
                 </CardMedia>
               </Col>
               <Col xs={12} md={6}>
                 <CardTitle title={title} subtitle={tagline}/>
                 <CardText>
-                  <FavoriteButton isFavorite={isFavorite} click={() => this.handleClick(id)}/>
+                  <FavoriteButton isFavorite={isFavorite} click={() => this.handleClick(movie)}/>
                   <div>
                     <p><strong> Status: </strong>{status}</p>
                   </div>
@@ -130,12 +130,12 @@ class Movie extends Component {
 
 const mapStateToProps = state => {
   return createStructuredSelector({
-    movie: makeSelectMovieWithFavor(),
-    isLoading: makeSelectMovieLoading(),
-    similarList: makeSelectSimilarMoviesList(),
-    similarListIsLoading: makeSelectSimilarMoviesLoading(),
-    recommendList: makeSelectRecommendMoviesList(),
-    recommendListIsLoading: makeSelectRecommendMoviesLoading(),
+    movie: makeSelectMovieWithFavor(state),
+    isLoading: makeSelectMovieLoading(state),
+    similarList: makeSelectSimilarMoviesList(state),
+    similarListIsLoading: makeSelectSimilarMoviesLoading(state),
+    recommendList: makeSelectRecommendMoviesList(state),
+    recommendListIsLoading: makeSelectRecommendMoviesLoading(state),
   });
 };
 
@@ -143,8 +143,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onMovieInit: (id) => dispatch(actions.fetchMovieInit(id)),
-    onAddMovieToFavorite: (id) => dispatch(actions.addMovieToFavorite(id)),
-    onRemoveMovieFromFavorite: (id) => dispatch(actions.removeMovieFromFavorite(id)),
+    onAddMovieToFavorite: (movie) => dispatch(actions.addMovieToFavorite(movie)),
+    onRemoveMovieFromFavorite: (movie) => dispatch(actions.removeMovieFromFavorite(movie)),
   }
 };
 

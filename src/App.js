@@ -17,7 +17,6 @@ import { createStructuredSelector } from "reselect";
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Link from 'react-router-dom/es/Link';
 
 
 class App extends Component {
@@ -56,10 +55,9 @@ class App extends Component {
 
   render() {
     const {favoriteList} = this.props;
-    const moviesItems = (favoriteList.map(movie => {
-      return <MenuItem key={movie} value={movie} primaryText={movie}
-                       onClick={() => this.menuClickHandler(movie)}/>
-
+    const moviesItems = (favoriteList.toJS().map(movie=> {
+      return <MenuItem key={movie.id} primaryText={movie.title}
+                       onClick={() => this.menuClickHandler(movie.id)}/>
 
     }));
     const btnTitle = (<span className={'d-i-flex'}>

@@ -3,21 +3,22 @@ import { fromJS } from 'immutable';
 
 
 const initialState = fromJS({
-  favoriteList: [337167],
+  favoriteList: [],
 });
 
 const movieAddToFavorite = (state, action) => {
+  const {id, title} = action.movie;
 
   return state.set(
-    'favoriteList', state.get('favoriteList').push(action.id)
+    'favoriteList', state.get('favoriteList').push(fromJS({id, title}))
   )
 };
 const removeMovieFromFavorite = (state, action) => {
-
-  const index = state.get('favoriteList').findIndex((i) => i === action.id);
+  const favoriteList = state.get('favoriteList');
 
   return state.set(
-    'favoriteList', state.get('favoriteList').delete(index)
+    'favoriteList',
+    favoriteList.filterNot(i => i.includes(action.movie.id))
   )
 };
 
