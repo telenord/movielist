@@ -21,19 +21,19 @@ const styles = {
   },
 };
 
-const itemsList = (props) => {
-  const {items} = props;
+const itemsList = ({items, click}) => {
+
   let gridItems = <h3>No Items</h3>;
 
   if (items.length) {
-    gridItems = (props.items.map((tile) => (
+    gridItems = (items.map((tile) => (
         <GridTile
           key={tile.id}
           title={tile.title}
           //actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)"/></IconButton>}
           titleStyle={styles.titleStyle}
           titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-          onClick={() => props.click(tile.id)}
+          onClick={() => click(tile.id)}
         >
           <img src={IMAGE_BASE_URL + `${tile.backdrop_path ? tile.backdrop_path : tile.poster_path}`} alt={tile.title}/>
         </GridTile>

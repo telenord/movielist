@@ -5,10 +5,9 @@ import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import Genres from '../Genres/Genres';
 import './MovieList.css';
 
-const MovieList = (props) => {
-  const {items} = props;
+const MovieList = ({items, onIconClick}) => {
   const favorIcon = (movie) => (
-    <FavoriteButton className="FavoriteButton" isFavorite={movie.isFavorite} click={() => props.onIconClick(movie)}/>
+    <FavoriteButton className="FavoriteButton" isFavorite={movie.isFavorite} click={() => onIconClick(movie)}/>
   );
   let movies = <h3>Movies not found</h3>;
   if (items.length) {

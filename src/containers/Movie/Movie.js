@@ -64,12 +64,12 @@ class Movie extends Component {
 
   render() {
     const {similarList, similarListIsLoading, recommendList, recommendListIsLoading, movie ,isLoading} = this.props;
-    const {isFavorite, tagline, genres, title, backdrop_path, status, overview, poster_path} = movie;
 
     if (isLoading) {
       return <Spinner/>;
     }
     if (movie) {
+      const {isFavorite, tagline, genres, title, backdrop_path, status, overview, poster_path, vote_average, vote_count, release_date} = movie;
       return (
         <Grid>
           <Card>
@@ -86,6 +86,12 @@ class Movie extends Component {
                   <FavoriteButton isFavorite={isFavorite} click={() => this.handleClick(movie)}/>
                   <div>
                     <p><strong> Status: </strong>{status}</p>
+                  </div>
+                  <div>
+                    <p><strong>Release date: </strong>{release_date}</p>
+                  </div>
+                  <div>
+                    <p><strong> Votes: </strong>{vote_average} / {vote_count}</p>
                   </div>
                   <div>
                     <Genres genres={genres}/>

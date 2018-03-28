@@ -1,7 +1,7 @@
 import React from 'react';
 import './Spinner.css';
 
-const name = (props) => (
+const name = () => (
     <div className='loader'>
         Loading...
     </div>
