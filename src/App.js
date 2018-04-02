@@ -7,7 +7,7 @@ import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles/index';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import Redirect from 'react-router-dom/es/Redirect';
 import {
-  AppBar, Drawer, FontIcon, IconButton, IconMenu, Menu, MenuItem, Popover,
+  AppBar, Drawer, FontIcon, IconButton, IconMenu,  MenuItem,
 } from 'material-ui';
 import Home from './containers/Home/Home';
 import {
