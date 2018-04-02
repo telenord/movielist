@@ -1,20 +1,21 @@
 import React from 'react';
-import { FontIcon } from 'material-ui';
+import { FontIcon, IconButton } from 'material-ui';
 import './FavoriteButton.css';
 
-const favoriteIcon = (props) => (
-  <span
-    className={props.className ? props.className : 'favoriteIcon'}
-    tooltip={props.isFavorite ? 'Remove from favourite' : 'Add to favourite'}
-    onClick={props.click}
+const favoriteIcon = ({className,click, isFavorite }) => (
+  <IconButton
+    className={className ? className : 'favoriteIcon'}
+    tooltip={isFavorite ? 'Remove from favourite' : 'Add to favourite'}
+    onClick={click}
+    style={{color: '#f44336'}}
   >
     <FontIcon
       style={{color: '#f44336'}}
-      className={props.isFavorite ? 'material-icons icon__favorite' : ' material-icons icon__favorite_border'}
+      className={isFavorite ? 'material-icons icon__favorite' : ' material-icons icon__favorite_border'}
     >
-      {props.isFavorite ? 'favorite' : 'favorite_border'}
+      {isFavorite ? 'favorite' : 'favorite_border'}
     </FontIcon>
-  </span>
+  </IconButton>
 );
 
 

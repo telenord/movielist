@@ -22,7 +22,7 @@ export const makeSelectMoviesListWithFavor = () => createSelector(
       movie.genres = genresList.filter(({id}) => {
         return movie.genre_ids.includes(id);
       });
-      movie.isFavorite = favoriteList.includes(movie.id);
+      movie.isFavorite = favoriteList.some(item => item.includes(movie.id));
       return movie;
     })
 );

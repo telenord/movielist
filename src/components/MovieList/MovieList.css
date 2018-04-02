@@ -7,14 +7,14 @@
   align-items: center;
 }
 .icon__favorite{
-  color: red;
+  color: #f44336!important;
 }
 .FavoriteButton{
-  position: absolute;
-  left: 34px;
-  top: 0;
-  display: flex;
+  position: absolute!important;
+  left: 20px;
+
+  display: flex!important;
   justify-content: center;
   align-items: center;
-  bottom: 0;
+
 }

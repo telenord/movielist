@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { TextField } from 'material-ui';
+import { AutoComplete, TextField } from 'material-ui';
 import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
 import { makeSelectMoviesListWithFavor } from '../../store/selectors/index';
@@ -32,6 +32,11 @@ class Home extends Component {
   handleIconClick(movie) {
     movie.isFavorite ? this.props.onRemoveMovieFromFavorite(movie) : this.props.onAddMovieToFavorite(movie);
   }
+  handleNewRequest = () => {
+    this.setState({
+      value: '',
+    });
+  };
 
   render() {
     const {movieList, isLoading} = this.props;
@@ -49,7 +54,11 @@ class Home extends Component {
         </Row>
         <Row className="show-grid">
           <Col xs={12}>
-            {isLoading ? <Spinner/> : <MovieList items={movieList} onIconClick={(e) => this.handleIconClick(e)}/>}
+            {isLoading ? <Spinner/> :
+              <MovieList
+                withIcon={true}
+                items={movieList}
+                onIconClick={(e) => this.handleIconClick(e)}/>}
           </Col>
         </Row>
       </Grid>
