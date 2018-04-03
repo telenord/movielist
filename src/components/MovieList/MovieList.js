@@ -9,7 +9,7 @@ import { withRouter } from 'react-router';
 const MovieList = ({items, onIconClick, withIcon, history}) => {
 
   const favorIcon = (movie) => (
-    <FavoriteButton className="FavoriteButton" isFavorite={movie.isFavorite} click={() => onIconClick(movie)}/>
+    <FavoriteButton className="FavoriteButton" isFavorite={movie.isFavorite} click={(e) => onIconClick(movie, e)}/>
   );
   let movies = <h3>Movies not found</h3>;
   if (items.length) {

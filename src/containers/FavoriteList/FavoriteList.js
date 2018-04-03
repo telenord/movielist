@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectFavoriteList } from '../../store/selectors';
-import ItemsList from '../../components/ItemsList/ItemsList';
 import MovieList from '../../components/MovieList/MovieList';
+import { Col, Grid, Row } from 'react-bootstrap';
 
 class FavoriteList extends Component {
 
@@ -16,10 +15,16 @@ class FavoriteList extends Component {
   render() {
     const {favoriteList} = this.props;
     return (
-      <MovieList
-        items={favoriteList.toJS()}
-        click={(movieId) => this.movieClickHandler(movieId)}
-      />
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <MovieList
+              items={favoriteList.toJS()}
+              click={(movieId) => this.movieClickHandler(movieId)}
+            />
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }

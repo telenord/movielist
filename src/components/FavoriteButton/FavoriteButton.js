@@ -6,7 +6,7 @@ const favoriteIcon = ({className,click, isFavorite }) => (
   <IconButton
     className={className ? className : 'favoriteIcon'}
     tooltip={isFavorite ? 'Remove from favourite' : 'Add to favourite'}
-    onClick={click}
+    onClick={(e)=>click(e)}
     style={{color: '#f44336'}}
   >
     <FontIcon

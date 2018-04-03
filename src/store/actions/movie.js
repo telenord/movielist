@@ -8,7 +8,6 @@ export const addMovieToFavorite = (movie) => {
 };
 
 export const removeMovieFromFavorite = (movie) => {
-  console.log(movie);
   return {
     type: actionTypes.MOVIE_REMOVE_FROM_FAVORITE,
     movie: movie
