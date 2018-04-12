@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 
 
-export const fetchMovieListInit = () => {
+export const fetchMovieListInit = (page) => {
   return {
     type: actionTypes.MOVIE_LIST_FETCH_INIT,
+    page: page
   }
 };
 

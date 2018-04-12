@@ -71,8 +71,8 @@ class Movie extends Component {
     if (movie) {
       const {isFavorite, tagline, genres, title, backdrop_path, status, overview, poster_path, vote_average, vote_count, release_date} = movie;
       return (
-        <Grid>
-          <Card>
+        <Grid style={{paddingTop: '20px'}}>
+          <Card >
             <Row className="show-grid">
               <Col xs={12} md={6}>
                 <CardMedia
@@ -110,7 +110,7 @@ class Movie extends Component {
               />}
             </Col>
           </Row>
-          <Row>
+          <Row style={{paddingBottom: '30px'}}>
             <Col xs={12}>
               <h2>Recommend Movies</h2>
               {recommendListIsLoading ? <Spinner/> : <ItemsList

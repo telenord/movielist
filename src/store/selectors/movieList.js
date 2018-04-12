@@ -26,5 +26,14 @@ export const makeSelectMoviesListWithFavor = () => createSelector(
       return movie;
     })
 );
+export const makeSelectMoviesListPagination = () => createSelector(
+  makeSelectMovies(),
+  (state) => {
+    return {
+      page: state.get('page'),
+      total_results: state.get('total_results')
+    }
+  }
+);
 
 

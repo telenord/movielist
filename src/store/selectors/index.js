@@ -13,25 +13,8 @@ export {
   makeSelectMovies,
   makeSelectMoviesList,
   makeSelectMoviesListWithFavor,
+  makeSelectMoviesListPagination,
 } from './movieList';
-
-
-
-// export {
-//   makeSelectMovie,
-//   makeSelectMovies,
-//   makeSelectMoviesList,
-//   makeSelectMoviesListWithFavor,
-//   makeSelectMovieWithFavor,
-//   makeSelectMovieLoading,
-//   makeSelectSimilarMovies,
-//   makeSelectSimilarMoviesList,
-//   makeSelectSimilarMoviesLoading,
-//   makeSelectRecommendMovies,
-//   makeSelectRecommendMoviesList,
-//   makeSelectRecommendMoviesLoading,
-//
-// } from './genres';
 
 export {
   makeSelectRecommendMovies,

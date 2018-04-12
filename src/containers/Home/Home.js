@@ -5,13 +5,16 @@ import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
 import { makeSelectMoviesListWithFavor } from '../../store/selectors/index';
 import { createStructuredSelector } from 'reselect';
+import  FlatPagination  from 'material-ui-flat-pagination';
 import Spinner from '../../components/Spinner/Spinner';
+
 
 import { makeSelectMoviesListLoading } from '../../store/selectors/movieList';
 import MovieList from '../../components/MovieList/MovieList';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
+import { makeSelectMovies, makeSelectMoviesListPagination } from '../../store/selectors';
 
 class Home extends Component {
   state = {
@@ -34,15 +37,16 @@ class Home extends Component {
     movie.isFavorite ? this.props.onRemoveMovieFromFavorite(movie) : this.props.onAddMovieToFavorite(movie);
   }
 
-  handleNewRequest = () => {
-    this.setState({
-      value: '',
-    });
+  handlePaginationChange = (e, offset) => {
+    this.props.onMovieListInit(offset/20 + 1);
   };
+
   //TODO : add Autocomplete component
 
   render() {
-    const {movieList, isLoading} = this.props;
+    const {movieList, isLoading, pagination} = this.props;
+    const {page, total_results} = pagination;
+
     return (
       <Grid>
         <Row className="show-grid">
@@ -64,6 +68,18 @@ class Home extends Component {
                 onIconClick={(m, event) => this.handleIconClick(m, event)}/>}
           </Col>
         </Row>
+
+        <Row>
+          <Col>
+            <FlatPagination
+              style={{paddingBottom: '20px'}}
+              offset={(page - 1) * 20}
+              limit={20}
+              total={total_results}
+              onClick={(event, offset) => this.handlePaginationChange(event, offset)}
+            />
+          </Col>
+        </Row>
       </Grid>
     )
   }
@@ -73,12 +89,13 @@ const mapStateToProps = state => {
   return createStructuredSelector({
     isLoading: makeSelectMoviesListLoading(),
     movieList: makeSelectMoviesListWithFavor(),
+    pagination: makeSelectMoviesListPagination(),
   });
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onMovieListInit: () => dispatch(actions.fetchMovieListInit()),
+    onMovieListInit: (page) => dispatch(actions.fetchMovieListInit(page)),
     onGenresListInit: () => dispatch(actions.fetchGenreListInit()),
     onSearchInit: (val) => dispatch(actions.searchMovieListInit(val)),
     onAddMovieToFavorite: (movie) => dispatch(actions.addMovieToFavorite(movie)),

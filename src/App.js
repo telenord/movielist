@@ -18,6 +18,7 @@ import { createStructuredSelector } from "reselect";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import FavoriteList from './containers/FavoriteList/FavoriteList';
+import Footer from './components/Footer/Footer';
 
 
 
@@ -138,6 +139,7 @@ class App extends Component {
             <Route path='/404' exact component={PageNotFound}/>
             <Redirect from='*' to='/404'/>
           </Switch>
+          <Footer/>
         </div>
       </MuiThemeProvider>
     );
