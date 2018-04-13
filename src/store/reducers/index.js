@@ -6,6 +6,7 @@ import movieListReducer from './movieList';
 import similarReducer from './similar';
 import recommendReducer from './recommend';
 import genresReducer from './genres';
+import languageProviderReducer from './locale';
 
 export default combineReducers({
   movieList: movieListReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
   favoriteList: favoriteReducer,
   similar: similarReducer,
   recommend: recommendReducer,
-  genres: genresReducer
+  genres: genresReducer,
+  language: languageProviderReducer
 });

@@ -6,15 +6,15 @@ import { connect } from 'react-redux';
 import { makeSelectMoviesListWithFavor } from '../../store/selectors/index';
 import { createStructuredSelector } from 'reselect';
 import  FlatPagination  from 'material-ui-flat-pagination';
-import Spinner from '../../components/Spinner/Spinner';
-
-
-import { makeSelectMoviesListLoading } from '../../store/selectors/movieList';
-import MovieList from '../../components/MovieList/MovieList';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
-import { makeSelectMovies, makeSelectMoviesListPagination } from '../../store/selectors';
+
+import Spinner from '../../components/Spinner/Spinner';
+import MovieList from '../../components/MovieList/MovieList';
+
+import { makeSelectMoviesListLoading, makeSelectMoviesListPagination } from '../../store/selectors';
+import withLocale from '../../hoc/withLocale/withLocale';
 
 class Home extends Component {
   state = {
@@ -22,6 +22,7 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     this.props.onMovieListInit();
     this.props.onGenresListInit();
   }
@@ -73,7 +74,7 @@ class Home extends Component {
           <Col>
             <FlatPagination
               style={{paddingBottom: '20px'}}
-              offset={(page - 1) * 20}
+              offset={(page - 1) * 20 > 0 ? (page - 1) * 20 : 0}
               limit={20}
               total={total_results}
               onClick={(event, offset) => this.handlePaginationChange(event, offset)}
@@ -103,4 +104,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(withLocale(Home));

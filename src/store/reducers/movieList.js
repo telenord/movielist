@@ -4,13 +4,12 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
   list: [],
   loading: false,
-  page: 0,
+  page: 1,
   total_pages: 0,
   total_results: 0,
   error: null
 });
 const movieListFetchInit = (state, action) => {
-  console.log(action);
   return state
   .set('loading', true)
   .set('error', null)
@@ -43,7 +42,6 @@ const movieListReducer = (state = initialState, action) => {
       return movieListFetchFail(state, action);
     case actionTypes.SEARCH_INIT:
       return searchMovieListInit(state, action);
-
     default:
       return state;
   }

@@ -37,3 +37,7 @@ export {
   fetchGenreListFail,
   fetchGenreListSuccess,
 } from './genres';
+
+export {
+
+} from './locale';

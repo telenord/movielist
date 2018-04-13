@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import LanguageProvider from './containers/LanguageProvider/LanguageProvider'
 import './index.css';
+import messages from './i18n';
 import App from './App'
 
 import configureStore from './store/store';
@@ -14,9 +16,11 @@ const store = configureStore(initialState);
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
+    <LanguageProvider messages={messages}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </LanguageProvider>
   </Provider>
 );
 

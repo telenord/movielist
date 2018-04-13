@@ -18,6 +18,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
+import { FormattedMessage} from 'react-intl';
 import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
 import ItemsList from '../../components/ItemsList/ItemsList';
 
@@ -29,6 +30,8 @@ class Movie extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+
     const locationChanged = nextProps.location.pathname !== this.props.location.pathname;
     if (locationChanged) {
       const {params: {id}} = nextProps.match;
@@ -68,6 +71,7 @@ class Movie extends Component {
     if (isLoading) {
       return <Spinner/>;
     }
+
     if (movie) {
       const {isFavorite, tagline, genres, title, backdrop_path, status, overview, poster_path, vote_average, vote_count, release_date} = movie;
       return (
@@ -85,13 +89,14 @@ class Movie extends Component {
                 <CardText>
                   <FavoriteButton isFavorite={isFavorite} click={() => this.handleClick(movie)}/>
                   <div>
-                    <p><strong> Status: </strong>{status}</p>
+                    <p><strong>
+                      <FormattedMessage id="movie.status" />:</strong> {status}</p>
                   </div>
                   <div>
-                    <p><strong>Release date: </strong>{release_date}</p>
+                    <p><strong><FormattedMessage id="movie.release_date" />:</strong> {release_date}</p>
                   </div>
                   <div>
-                    <p><strong> Votes: </strong>{vote_average} / {vote_count}</p>
+                    <p><strong><FormattedMessage id="movie.votes" />: </strong> {vote_average} / {vote_count}</p>
                   </div>
                   <div>
                     <Genres genres={genres}/>
@@ -103,7 +108,7 @@ class Movie extends Component {
           </Card>
           <Row>
             <Col xs={12}>
-              <h2>Similar Movies</h2>
+              <h2><FormattedMessage id="movie.similar_movies" /></h2>
               {similarListIsLoading ? <Spinner/> : <ItemsList
                 items={similarList}
                 click={(movieId) => this.itemsListClickHandler(movieId)}
@@ -112,7 +117,7 @@ class Movie extends Component {
           </Row>
           <Row style={{paddingBottom: '30px'}}>
             <Col xs={12}>
-              <h2>Recommend Movies</h2>
+              <h2><FormattedMessage id="movie.recommend_movies" /></h2>
               {recommendListIsLoading ? <Spinner/> : <ItemsList
                 items={recommendList}
                 click={(movieId) => this.itemsListClickHandler(movieId)}

@@ -1,0 +1,9 @@
+{
+  "movie.genres": "Genres",
+  "movie.similar_movies": "Similar Movies",
+  "movie.status": "Status",
+  "movie.recommend_movies": "Recommend Movies",
+  "movie.release_date": "Release date",
+  "movie.votes": "Votes"
+
+}

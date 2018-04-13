@@ -1,0 +1,9 @@
+{
+  "movie.genres": "Жанр",
+  "movie.release_date": "Дата премьеры",
+  "movie.similar_movies": "Похожие фильмы",
+  "movie.status": "Статус",
+  "movie.recommend_movies": "Рекомендованные фильмы",
+  "movie.votes": "Рейтинг"
+
+}

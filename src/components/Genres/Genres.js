@@ -1,6 +1,7 @@
 import React from 'react';
 import { Chip } from 'material-ui';
 import './Genres.css';
+import { FormattedMessage } from 'react-intl';
 
 const genres = (props) => {
   let genresList = null;
@@ -11,7 +12,7 @@ const genres = (props) => {
   }
   return (
     <div className="GenresWrapper">
-      <strong> Genres: </strong>
+      <strong><FormattedMessage id="movie.genres" />: </strong>
       <div className="GenresWrapper">
         {genresList}
       </div>

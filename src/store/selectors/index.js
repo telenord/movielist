@@ -14,6 +14,7 @@ export {
   makeSelectMoviesList,
   makeSelectMoviesListWithFavor,
   makeSelectMoviesListPagination,
+  makeSelectMoviesListLoading,
 } from './movieList';
 
 export {
@@ -27,3 +28,8 @@ export {
   makeSelectSimilarMoviesList,
   makeSelectSimilarMoviesLoading,
 } from './similar';
+
+export {
+  makeSelectLanguage,
+  makeSelectLocale,
+}from './locale';
