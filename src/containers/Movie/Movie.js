@@ -31,8 +31,6 @@ class Movie extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-
     const locationChanged = nextProps.location.pathname !== this.props.location.pathname;
     if (locationChanged) {
       const {params: {id}} = nextProps.match;
@@ -75,6 +73,8 @@ class Movie extends Component {
 
     if (movie) {
       const {isFavorite, tagline, genres, title, backdrop_path, status, overview, poster_path, vote_average, vote_count, release_date} = movie;
+      const mess = <FormattedMessage id={isFavorite? 'movie.snackbar.added':'movie.snackbar.removed' } />;
+      console.log(mess);
       return (
         <Grid style={{paddingTop: '20px'}}>
           <Card >
@@ -127,8 +127,9 @@ class Movie extends Component {
           </Row>
           <Snackbar
             open={this.state.snackbar.open}
-            message={isFavorite ?
-              `${title} added to your Favorites` : `${title} removed from Favorites`}
+            message={<FormattedMessage id={isFavorite? 'movie.snackbar.added':'movie.snackbar.removed' }
+                                       defaultMessage='Hello, {title}!'
+                                       values={{title:title}} />    }
             autoHideDuration={4000}
             onRequestClose={this.handleRequestClose}
           />

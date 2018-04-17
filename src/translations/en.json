@@ -4,6 +4,8 @@
   "movie.status": "Status",
   "movie.recommend_movies": "Recommend Movies",
   "movie.release_date": "Release date",
+  "movie.snackbar.added":"added to your Favorites",
+  "movie.snackbar.removed":"added to your Favorites",
   "movie.votes": "Votes"
 
 }

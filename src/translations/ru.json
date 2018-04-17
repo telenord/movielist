@@ -1,9 +1,14 @@
 {
   "movie.genres": "Жанр",
+
+  "movie.recommend_movies": "Рекомендованные фильмы",
   "movie.release_date": "Дата премьеры",
   "movie.similar_movies": "Похожие фильмы",
+
+  "movie.snackbar.added":"добавлен в Избранное",
+  "movie.snackbar.removed":"удален из Избранного",
+
   "movie.status": "Статус",
-  "movie.recommend_movies": "Рекомендованные фильмы",
   "movie.votes": "Рейтинг"
 
 }

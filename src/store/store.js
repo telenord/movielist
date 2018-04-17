@@ -11,6 +11,7 @@ import rootReducer from './reducers/index';
 import createSagaMiddleware from 'redux-saga';
 import * as sagas from './sagas';
 import { persistLocalStorage } from './localStorage';
+import apiMiddleware from './middleware/api';
 
 
 export default function configureStore(initialState = {}, history) {
@@ -21,6 +22,7 @@ export default function configureStore(initialState = {}, history) {
   ];
   const middleware = [
     thunk,
+    apiMiddleware,
     sagaMiddleware,
     routerMiddleware(history),
   ];
@@ -44,6 +46,7 @@ export default function configureStore(initialState = {}, history) {
   );
 
   Object.keys(sagas).forEach(sagaName => {
+
     sagaMiddleware.run(sagas[sagaName]);
   });
 

@@ -18,7 +18,7 @@ const recommendMoviesFetchStart = (state, action) => {
 const recommendMoviesFetchSuccess = (state, action) => {
   return state
   .set('loading', false)
-  .set('recommendList', action.data.results)
+  .set('recommendList', action.payload.results)
 };
 
 const recommendMoviesFetchFail = (state, action) => {

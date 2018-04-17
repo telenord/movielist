@@ -4,7 +4,8 @@ import { fetchMovieSaga } from './movie';
 import { fetchMovieListSaga, searchMovieListSaga } from './movieList';
 import { fetchGenreListSaga } from './genres';
 import { fetchSimilarMoviesSaga } from './similar';
-import { fetchRecommendMoviesSaga } from './recommend';
+import { apiFetchSaga } from './api';
+//import { fetchRecommendMoviesSaga } from './recommend';
 
 
 export function* watchFetchMovie() {
@@ -19,9 +20,9 @@ export function* watchFetchSimilarMovies() {
   yield takeEvery(actionTypes.SIMILAR_MOVIES_FETCH_INIT, fetchSimilarMoviesSaga);
 }
 
-export function* watchFetchRecommendMovies() {
-  yield takeEvery(actionTypes.RECOMMEND_MOVIES_FETCH_INIT, fetchRecommendMoviesSaga);
-}
+// export function* watchFetchRecommendMovies() {
+//   yield takeEvery(actionTypes.RECOMMEND_MOVIES_FETCH_INIT, fetchRecommendMoviesSaga);
+// }
 
 export function* watchFetchGenresList() {
   yield takeEvery(actionTypes.GENRES_FETCH_INIT, fetchGenreListSaga);
@@ -29,4 +30,8 @@ export function* watchFetchGenresList() {
 
 export function* watchSearchMovieList() {
   yield takeEvery(actionTypes.SEARCH_INIT, searchMovieListSaga);
+}
+
+export function* watchApiFetch() {
+  yield takeEvery(actionTypes.API_FETCH_INIT, apiFetchSaga);
 }
