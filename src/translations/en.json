@@ -1,11 +1,12 @@
 {
   "movie.genres": "Genres",
-  "movie.similar_movies": "Similar Movies",
-  "movie.status": "Status",
   "movie.recommend_movies": "Recommend Movies",
   "movie.release_date": "Release date",
-  "movie.snackbar.added":"added to your Favorites",
-  "movie.snackbar.removed":"added to your Favorites",
+  "movie.similar_movies": "Similar Movies",
+  "movie.snackbar.added": "Added to your Favorites",
+  "movie.snackbar.removed": "Removed from your Favorites",
+  "movie.status": "Status",
+  "movie.status.Released": "Released",
+  "movie.status.Planned": "Planned",
   "movie.votes": "Votes"
-
 }

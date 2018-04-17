@@ -1,14 +1,12 @@
 {
   "movie.genres": "Жанр",
-
   "movie.recommend_movies": "Рекомендованные фильмы",
   "movie.release_date": "Дата премьеры",
   "movie.similar_movies": "Похожие фильмы",
-
-  "movie.snackbar.added":"добавлен в Избранное",
-  "movie.snackbar.removed":"удален из Избранного",
-
+  "movie.snackbar.added": "Добавлено в Избранное",
+  "movie.snackbar.removed": "Удалено из Избранного",
   "movie.status": "Статус",
+  "movie.status.Released": "Готов",
+  "movie.status.Planned": "Запланирован",
   "movie.votes": "Рейтинг"
-
 }

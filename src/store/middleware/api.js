@@ -1,10 +1,11 @@
 
 const apiMiddleware = store => next => action => {
+  console.log(action);
   if (!action.meta || action.meta.type !== 'api') {
     return next(action);
   }
   // This is an api request
-
+  //console.log(store.getState().get('language').get('locale'));
   // Find the request URL and compose request options from meta
   const {url} = action.meta;
   const fetchOptions = Object.assign({}, action.meta);

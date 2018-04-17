@@ -46,7 +46,6 @@ export default function configureStore(initialState = {}, history) {
   );
 
   Object.keys(sagas).forEach(sagaName => {
-
     sagaMiddleware.run(sagas[sagaName]);
   });
 

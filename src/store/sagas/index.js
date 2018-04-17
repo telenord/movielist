@@ -5,6 +5,7 @@ import { fetchMovieListSaga, searchMovieListSaga } from './movieList';
 import { fetchGenreListSaga } from './genres';
 import { fetchSimilarMoviesSaga } from './similar';
 import { apiFetchSaga } from './api';
+import store from '../store';
 //import { fetchRecommendMoviesSaga } from './recommend';
 
 

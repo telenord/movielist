@@ -18,7 +18,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
-import { FormattedMessage, injectIntl} from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
 import ItemsList from '../../components/ItemsList/ItemsList';
 import { compose } from 'recompose';
@@ -65,7 +65,7 @@ class Movie extends Component {
   }
 
   render() {
-    const {similarList, similarListIsLoading, recommendList, recommendListIsLoading, movie ,isLoading} = this.props;
+    const {similarList, similarListIsLoading, recommendList, recommendListIsLoading, movie, isLoading} = this.props;
 
     if (isLoading) {
       return <Spinner/>;
@@ -73,16 +73,17 @@ class Movie extends Component {
 
     if (movie) {
       const {isFavorite, tagline, genres, title, backdrop_path, status, overview, poster_path, vote_average, vote_count, release_date} = movie;
-      const mess = <FormattedMessage id={isFavorite? 'movie.snackbar.added':'movie.snackbar.removed' } />;
-      console.log(mess);
       return (
         <Grid style={{paddingTop: '20px'}}>
-          <Card >
+          <Card>
             <Row className="show-grid">
               <Col xs={12} md={6}>
                 <CardMedia
                   overlay={<CardTitle title={title} subtitle={tagline}/>}>
-                  <img src={IMAGE_BASE_URL + `${backdrop_path ? backdrop_path : poster_path}`} alt={title}/>
+                  {
+                    (backdrop_path || poster_path) &&
+                    <img src={IMAGE_BASE_URL + `${backdrop_path ? backdrop_path : poster_path}`} alt={title}/>
+                  }
                 </CardMedia>
               </Col>
               <Col xs={12} md={6}>
@@ -90,14 +91,19 @@ class Movie extends Component {
                 <CardText>
                   <FavoriteButton isFavorite={isFavorite} click={() => this.handleClick(movie)}/>
                   <div>
-                    <p><strong>
-                      <FormattedMessage id="movie.status" />:</strong> {status}</p>
+                    {
+                      status &&
+                      <p><strong>
+                        <FormattedMessage id="movie.status"/>:</strong> <FormattedMessage
+                        id={`movie.status.${status}`}/>
+                      </p>
+                    }
                   </div>
                   <div>
-                    <p><strong><FormattedMessage id="movie.release_date" />:</strong> {release_date}</p>
+                    <p><strong><FormattedMessage id="movie.release_date"/>:</strong> {release_date}</p>
                   </div>
                   <div>
-                    <p><strong><FormattedMessage id="movie.votes" />: </strong> {vote_average} / {vote_count}</p>
+                    <p><strong><FormattedMessage id="movie.votes"/>: </strong> {vote_average} / {vote_count}</p>
                   </div>
                   <div>
                     <Genres genres={genres}/>
@@ -109,7 +115,7 @@ class Movie extends Component {
           </Card>
           <Row>
             <Col xs={12}>
-              <h2><FormattedMessage id="movie.similar_movies" /></h2>
+              <h2><FormattedMessage id="movie.similar_movies"/></h2>
               {similarListIsLoading ? <Spinner/> : <ItemsList
                 items={similarList}
                 click={(movieId) => this.itemsListClickHandler(movieId)}
@@ -118,7 +124,7 @@ class Movie extends Component {
           </Row>
           <Row style={{paddingBottom: '30px'}}>
             <Col xs={12}>
-              <h2><FormattedMessage id="movie.recommend_movies" /></h2>
+              <h2><FormattedMessage id="movie.recommend_movies"/></h2>
               {recommendListIsLoading ? <Spinner/> : <ItemsList
                 items={recommendList}
                 click={(movieId) => this.itemsListClickHandler(movieId)}
@@ -127,9 +133,7 @@ class Movie extends Component {
           </Row>
           <Snackbar
             open={this.state.snackbar.open}
-            message={<FormattedMessage id={isFavorite? 'movie.snackbar.added':'movie.snackbar.removed' }
-                                       defaultMessage='Hello, {title}!'
-                                       values={{title:title}} />    }
+            message={<FormattedMessage id={isFavorite ? 'movie.snackbar.removed' : 'movie.snackbar.added'}/>}
             autoHideDuration={4000}
             onRequestClose={this.handleRequestClose}
           />

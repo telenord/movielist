@@ -4,7 +4,7 @@ import axios from 'axios/index';
 
 export function* apiFetchSaga(action) {
 
-  const {url, start, success, error}  = action.meta;
+  const {url, start, success, error} = action.meta;
 
   yield put(start());
   try {
