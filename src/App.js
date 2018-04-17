@@ -121,7 +121,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={this.muiTheme}>
         <div className="App">
           <AppBar
-            title="Menu"
+            //title="Menu"
             iconElementRight={rightMenu}
             onLeftIconButtonClick={this.handleDrawerOpen}
           />

@@ -18,9 +18,10 @@ import Spinner from '../../components/Spinner/Spinner';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
-import { FormattedMessage} from 'react-intl';
+import { FormattedMessage, injectIntl} from 'react-intl';
 import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
 import ItemsList from '../../components/ItemsList/ItemsList';
+import { compose } from 'recompose';
 
 class Movie extends Component {
   state = {
@@ -141,12 +142,12 @@ class Movie extends Component {
 
 const mapStateToProps = state => {
   return createStructuredSelector({
-    movie: makeSelectMovieWithFavor(state),
-    isLoading: makeSelectMovieLoading(state),
-    similarList: makeSelectSimilarMoviesList(state),
-    similarListIsLoading: makeSelectSimilarMoviesLoading(state),
-    recommendList: makeSelectRecommendMoviesList(state),
-    recommendListIsLoading: makeSelectRecommendMoviesLoading(state),
+    movie: makeSelectMovieWithFavor(),
+    isLoading: makeSelectMovieLoading(),
+    similarList: makeSelectSimilarMoviesList(),
+    similarListIsLoading: makeSelectSimilarMoviesLoading(),
+    recommendList: makeSelectRecommendMoviesList(),
+    recommendListIsLoading: makeSelectRecommendMoviesLoading(),
   });
 };
 
@@ -159,4 +160,9 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Movie));
+const wrapper = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  injectIntl,
+);
+
+export default withRouter((wrapper(Movie)));

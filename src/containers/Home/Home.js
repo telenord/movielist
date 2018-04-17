@@ -14,7 +14,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import MovieList from '../../components/MovieList/MovieList';
 
 import { makeSelectMoviesListLoading, makeSelectMoviesListPagination } from '../../store/selectors';
-import withLocale from '../../hoc/withLocale/withLocale';
+
 
 class Home extends Component {
   state = {
@@ -104,4 +104,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withLocale(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

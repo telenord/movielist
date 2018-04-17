@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import LanguageProvider from './containers/LanguageProvider/LanguageProvider'
+import LanguageProvider from './hoc/LanguageProvider/LanguageProvider'
 import './index.css';
 import messages from './i18n';
 import App from './App'

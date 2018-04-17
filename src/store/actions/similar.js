@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 export const fetchSimilarMoviesInit = (id) => {
   return {
     type: actionTypes.SIMILAR_MOVIES_FETCH_INIT,
-    id: id
+    id
   }
 };
 
@@ -16,13 +16,13 @@ export const fetchSimilarMoviesStart = () => {
 export const fetchSimilarMoviesSuccess = (data) => {
   return {
     type: actionTypes.SIMILAR_MOVIES_FETCH_SUCCESS,
-    data : data
+    data
   }
 };
 
 export const fetchSimilarMoviesFail = (error) => {
   return {
     type: actionTypes.SIMILAR_MOVIES_FETCH_FAIL,
-    error: error
+    error
   }
 };

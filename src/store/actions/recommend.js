@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 export const fetchRecommendMoviesInit = (id) => {
   return {
     type: actionTypes.RECOMMEND_MOVIES_FETCH_INIT,
-    id: id
+    id
   }
 };
 
@@ -16,13 +16,13 @@ export const fetchRecommendMoviesStart = () => {
 export const fetchRecommendMoviesSuccess = (data) => {
   return {
     type: actionTypes.RECOMMEND_MOVIES_FETCH_SUCCESS,
-    data: data
+    data
   }
 };
 
 export const fetchRecommendMoviesFail = (error) => {
   return {
     type: actionTypes.RECOMMEND_MOVIES_FETCH_FAIL,
-    error: error
+    error
   }
 };

@@ -4,7 +4,7 @@ import * as actionTypes from './actionTypes';
 export const fetchMovieListInit = (page) => {
   return {
     type: actionTypes.MOVIE_LIST_FETCH_INIT,
-    page: page
+    page
   }
 };
 
@@ -17,20 +17,20 @@ export const fetchMovieListStart = () => {
 export const fetchMovieListSuccess = (data) => {
   return {
     type: actionTypes.MOVIE_LIST_FETCH_SUCCESS,
-    data : data
+    data
   }
 };
 
 export const fetchMovieListFail = (error) => {
   return {
     type: actionTypes.MOVIE_LIST_FETCH_FAIL,
-    error: error
+    error
   }
 };
 
 export const searchMovieListInit = (name) => {
   return {
     type: actionTypes.SEARCH_INIT,
-    name: name
+    name
   }
 };

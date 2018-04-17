@@ -3,21 +3,21 @@ import * as actionTypes from './actionTypes';
 export const addMovieToFavorite = (movie) => {
   return {
     type: actionTypes.MOVIE_ADD_TO_FAVORITE,
-    movie: movie,
+    movie
   }
 };
 
 export const removeMovieFromFavorite = (movie) => {
   return {
     type: actionTypes.MOVIE_REMOVE_FROM_FAVORITE,
-    movie: movie
+    movie
   }
 };
 
 export const fetchMovieInit = (id) => {
   return {
     type: actionTypes.MOVIE_FETCH_INIT,
-    id : id
+    id
   }
 };
 
@@ -30,13 +30,13 @@ export const fetchMovieStart = () => {
 export const fetchMovieSuccess = (movie) => {
   return {
     type: actionTypes.MOVIE_FETCH_SUCCESS,
-    movie : movie
+    movie
   }
 };
 
 export const fetchMovieFail = (error) => {
   return {
     type: actionTypes.MOVIE_FETCH_FAIL,
-    error: error
+    error
   }
 };

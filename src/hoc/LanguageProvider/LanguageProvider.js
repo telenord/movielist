@@ -2,7 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectLocale } from '../../store/selectors';
+import { makeSelectLocale } from '../../store/selectors/index';
 
 class LanguageProvider extends React.PureComponent {
   render() {

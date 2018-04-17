@@ -18,7 +18,7 @@ const genresFetchSuccess = (state, action) => {
   .set('loading', false)
   .set('genresList', action.genres.genres)
 };
-const rgenresFetchFail = (state, action) => {
+const genresFetchFail = (state, action) => {
   return state
   .set('loading', false)
   .set('error', action.error)
@@ -31,7 +31,7 @@ const genresReducer = (state = initialState, action) => {
     case actionTypes.GENRES_FETCH_SUCCESS:
       return genresFetchSuccess(state, action);
     case actionTypes.GENRES_FETCH_FAIL:
-      return rgenresFetchFail(state, action);
+      return genresFetchFail(state, action);
     default:
       return state;
   }

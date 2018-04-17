@@ -16,13 +16,13 @@ export const fetchGenreListStart = () => {
 export const fetchGenreListSuccess = (genres) => {
   return {
     type: actionTypes.GENRES_FETCH_SUCCESS,
-    genres : genres
+    genres
   }
 };
 
 export const fetchGenreListFail = (error) => {
   return {
     type: actionTypes.GENRES_FETCH_FAIL,
-    error: error
+    error
   }
 };
