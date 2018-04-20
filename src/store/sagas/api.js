@@ -3,9 +3,9 @@ import { getUrl } from '../../shared/moviedb';
 import axios from 'axios/index';
 
 export function* apiFetchSaga(action) {
-
+  console.log('saga',action);
   const {url, start, success, error} = action.meta;
-
+  const fullPath= getUrl(url);
   yield put(start());
   try {
     const response = yield axios.get(url);

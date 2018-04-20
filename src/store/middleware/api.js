@@ -1,14 +1,23 @@
+import { getUrl } from '../../shared/moviedb';
 
 const apiMiddleware = store => next => action => {
   console.log(action);
+  let lang = 'en'|| store.getState().get('language').get('locale');
+
+  let {url} = action.meta? action.meta: '';
+  console.log(getUrl(url, {lang}));
   if (!action.meta || action.meta.type !== 'api') {
     return next(action);
   }
   // This is an api request
   //console.log(store.getState().get('language').get('locale'));
   // Find the request URL and compose request options from meta
-  const {url} = action.meta;
-  const fetchOptions = Object.assign({}, action.meta);
+
+
+
+  action.meta = {...action.meta, url: getUrl(url, {lang })}
+  const fetchOptions = Object.assign({}, action.meta, );
+  console.log(fetchOptions);
   // Make the request
   fetch(url, fetchOptions)
   // convert the response to json

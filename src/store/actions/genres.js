@@ -7,7 +7,7 @@ export const fetchGenreListInit = () => {
     type: actionTypes.API_FETCH_INIT,
     meta: {
       type: 'genres',
-      url: getUrl('/genre/movie/list'),
+      url: '/genre/movie/list',
       start: fetchGenreListStart,
       success: fetchGenreListSuccess,
       error: fetchGenreListFail,
