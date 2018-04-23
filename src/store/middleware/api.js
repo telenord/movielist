@@ -1,21 +1,22 @@
 import { getUrl } from '../../shared/moviedb';
 
 const apiMiddleware = store => next => action => {
-  console.log(action);
-  let lang = 'en'|| store.getState().get('language').get('locale');
+
+  let language = store.getState().get('language').get('locale') || 'en';
 
   let {url} = action.meta? action.meta: '';
-  console.log(getUrl(url, {lang}));
+
   if (!action.meta || action.meta.type !== 'api') {
     return next(action);
   }
+  console.log(getUrl(url, {language}));
   // This is an api request
   //console.log(store.getState().get('language').get('locale'));
   // Find the request URL and compose request options from meta
 
 
 
-  action.meta = {...action.meta, url: getUrl(url, {lang })}
+  action.meta = {...action.meta, url: getUrl(url, {language })}
   const fetchOptions = Object.assign({}, action.meta, );
   console.log(fetchOptions);
   // Make the request
