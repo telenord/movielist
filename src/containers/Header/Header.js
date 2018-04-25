@@ -5,7 +5,9 @@ import { createStructuredSelector } from 'reselect';
 
 import { AppBar, Drawer, FontIcon, IconButton, IconMenu, MenuItem } from 'material-ui';
 import { withRouter } from 'react-router';
-import { makeSelectFavoriteList } from '../../store/selectors';
+import { makeSelectFavoriteList, makeSelectLocale } from '../../store/selectors';
+import { FormattedMessage } from 'react-intl';
+import * as actions from '../../store/actions';
 
 class Header extends Component {
   state = {
@@ -62,11 +64,11 @@ class Header extends Component {
     }
     const navItems = [{
       url: '/',
-      title: 'Home'
+      title: <FormattedMessage id="menu.home"/>
     },
       {
         url: '/favorite',
-        title: 'FavoriteList'
+        title: <FormattedMessage id="menu.favoriteList"/>
       }
     ];
     const rightMenu = (
@@ -104,19 +106,26 @@ class Header extends Component {
           onRequestChange={this.handleDrawerClose}
         >
           {renderNavItems}
+          <MenuItem onClick={() => this.props.onChangeLocale('ru')} primaryText={'ru'}/>
+          <MenuItem onClick={() => this.props.onChangeLocale('en')} primaryText={'en'}/>
         </Drawer>
       </div>
     )
-
   }
 }
 
 const mapStateToProps = state => {
   return createStructuredSelector({
     favoriteList: makeSelectFavoriteList(),
+    locale: makeSelectLocale(),
   });
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangeLocale: (locale) => dispatch(actions.changeLocale(locale)),
+  }
+};
 
-export default withRouter(connect(mapStateToProps)(Header));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
 

@@ -1,4 +1,9 @@
 {
+  "home.search.labelText": "Поиск по названию",
+  "home.search.hintText": "Введите название",
+  "footer.main_text": "Создай свой список Избранных фильмов",
+  "menu.home": "Домой",
+  "menu.favoriteList": "Избранное",
   "movie.genres": "Жанр",
   "movie.recommend_movies": "Рекомендованные фильмы",
   "movie.release_date": "Дата премьеры",

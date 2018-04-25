@@ -39,5 +39,5 @@ export {
 } from './genres';
 
 export {
-
+  changeLocale
 } from './locale';

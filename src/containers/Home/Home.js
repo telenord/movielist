@@ -9,6 +9,7 @@ import  FlatPagination  from 'material-ui-flat-pagination';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
 
 import Spinner from '../../components/Spinner/Spinner';
 import MovieList from '../../components/MovieList/MovieList';
@@ -53,8 +54,8 @@ class Home extends Component {
           <Col xs={12}>
             <TextField
               value={this.state.value}
-              hintText="start typing"
-              floatingLabelText="Search movie by name"
+              hintText={<FormattedMessage id="home.search.hintText"/>}
+              floatingLabelText={<FormattedMessage id="home.search.labelText"/>}
               onChange={(e) => this.handleSearch(e)}
             />
           </Col>

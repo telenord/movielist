@@ -1,4 +1,9 @@
 {
+  "home.search.labelText": "Search movie by name",
+  "home.search.hintText": "start typing",
+  "footer.main_text": "Make your Favourite MovieList",
+  "menu.home": "Home",
+  "menu.favoriteList": "FavoriteList",
   "movie.genres": "Genres",
   "movie.recommend_movies": "Recommend Movies",
   "movie.release_date": "Release date",
