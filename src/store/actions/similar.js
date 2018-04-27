@@ -1,8 +1,16 @@
 import * as actionTypes from './actionTypes';
+import { fetchRecommendMoviesFail, fetchRecommendMoviesStart, fetchRecommendMoviesSuccess } from './recommend';
 
 export const fetchSimilarMoviesInit = (id) => {
   return {
-    type: actionTypes.SIMILAR_MOVIES_FETCH_INIT,
+    type: actionTypes.API_FETCH_INIT,
+    meta: {
+      type: 'similar',
+      url: `/movie/${id}/similar`,
+      start: fetchSimilarMoviesStart,
+      success: fetchSimilarMoviesSuccess,
+      error: fetchSimilarMoviesFail,
+    },
     id
   }
 };

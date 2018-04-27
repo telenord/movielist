@@ -16,6 +16,7 @@ const similarMoviesFetchStart = (state, action) => {
 
 
 const similarMoviesFetchSuccess = (state, action) => {
+  console.log(action);
   return state
   .set('loading', false)
   .set('similarList', action.data.results)
