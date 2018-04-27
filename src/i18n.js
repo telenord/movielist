@@ -6,26 +6,20 @@ import ru from 'react-intl/locale-data/ru';
 import enTranslates from './translations/en.json';
 import ruTranslates from './translations/ru.json';
 
-let currentLang;
-
-const DEFAULT_LOCALE = currentLang || 'ru';
-
 addLocaleData([
   ...en,
   ...ru,
 ]);
 
-let messages;
-switch (DEFAULT_LOCALE) {
-  case 'ru':
-    messages = ruTranslates;
-    break;
-  case 'en':
-    messages = enTranslates;
-    break;
-  default:
-    messages = ruTranslates;
-    break;
-}
+export const getMessages=(locale)=>{
+  switch (locale) {
+    case 'ru':
+      return ruTranslates;
 
-export default messages;
+    case 'en':
+      return enTranslates;
+
+    default:
+      return enTranslates;
+  }
+};

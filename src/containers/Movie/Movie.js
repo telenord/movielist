@@ -159,7 +159,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onMovieInit: (id) => dispatch(actions.fetchMovieInit(id)),
+    onMovieInit: (id) => {
+      dispatch(actions.fetchMovieInit(id));
+      dispatch(actions.fetchSimilarMoviesInit(id));
+      dispatch(actions.fetchRecommendMoviesInit(id));
+    },
     onAddMovieToFavorite: (movie) => dispatch(actions.addMovieToFavorite(movie)),
     onRemoveMovieFromFavorite: (movie) => dispatch(actions.removeMovieFromFavorite(movie)),
   }

@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { AppBar, Drawer, FontIcon, IconButton, IconMenu, MenuItem } from 'material-ui';
+import { AppBar, Drawer } from 'material-ui';
 import { withRouter } from 'react-router';
-import { makeSelectFavoriteList, makeSelectLocale } from '../../store/selectors';
-import { FormattedMessage } from 'react-intl';
+import { makeSelectLocale } from '../../store/selectors';
+
 import * as actions from '../../store/actions';
+import { setCookie } from '../../helpers/cookies';
+import NavItems from '../../components/NavItems/NavItems';
+import LocaleMenu from '../../components/LocaleMenu/LocaleMenu';
 
 class Header extends Component {
   state = {
@@ -15,28 +18,9 @@ class Header extends Component {
     drawerIsOpen: false,
   };
 
-  movieClickHandler = movie => {
-    this.handlePopoverClose();
-    this.props.history.push(`/movie/${movie}`)
-  };
-
-  handlePopoverOpen = (event) => {
-    event.preventDefault();
-    this.setState({
-      popoverIsOpen: true,
-      anchorEl: event.currentTarget,
-    });
-  };
-
   handleDrawerOpen = () => {
     this.setState({
       drawerIsOpen: true,
-    });
-  };
-
-  handlePopoverClose = () => {
-    this.setState({
-      popoverIsOpen: false,
     });
   };
 
@@ -51,53 +35,17 @@ class Header extends Component {
     this.props.history.push(url)
   };
 
+  localeClickHandler = locale => {
+    this.props.onChangeLocale(locale);
+    setCookie('prefered_language', locale, {expires: 30 * 60 * 1000});
+  };
+
   render() {
-    const {favoriteList} = this.props;
-
-    let moviesItems = <MenuItem primaryText={'No favorite movies yet'}/>;
-    if (favoriteList.size) {
-      moviesItems = (favoriteList.map(movie => {
-        return <MenuItem key={movie.get('id')} primaryText={movie.get('title')}
-                         onClick={() => this.movieClickHandler(movie.get('id'))}/>
-
-      }));
-    }
-    const navItems = [{
-      url: '/',
-      title: <FormattedMessage id="menu.home"/>
-    },
-      {
-        url: '/favorite',
-        title: <FormattedMessage id="menu.favoriteList"/>
-      }
-    ];
-    const rightMenu = (
-      <IconMenu
-        iconButtonElement={
-          <IconButton>
-            <FontIcon
-              onClick={this.handlePopoverOpen}
-              style={{color: '#f44336'}}
-              className={'material-icons icon__favorite mr5'}
-            >
-              favorite
-            </FontIcon>
-          </IconButton>
-        }
-        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-      >{moviesItems}</IconMenu>
-    );
-
-    const renderNavItems = navItems.map((item, i) =>
-      <MenuItem key={i} onClick={() => this.navItemClickHandler(item.url)} primaryText={item.title}/>
-    );
-
     return (
       <div>
         <AppBar
-          //title="Menu"
-          iconElementRight={rightMenu}
+          iconElementRight={<LocaleMenu locale={this.props.locale}
+                                        click={(locale) => this.localeClickHandler(locale)}/>}
           onLeftIconButtonClick={this.handleDrawerOpen}
         />
         <Drawer
@@ -105,9 +53,7 @@ class Header extends Component {
           open={this.state.drawerIsOpen}
           onRequestChange={this.handleDrawerClose}
         >
-          {renderNavItems}
-          <MenuItem onClick={() => this.props.onChangeLocale('ru')} primaryText={'ru'}/>
-          <MenuItem onClick={() => this.props.onChangeLocale('en')} primaryText={'en'}/>
+          <NavItems click={(url) => this.navItemClickHandler(url)}/>
         </Drawer>
       </div>
     )
@@ -116,7 +62,6 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return createStructuredSelector({
-    favoriteList: makeSelectFavoriteList(),
     locale: makeSelectLocale(),
   });
 };

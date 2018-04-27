@@ -2,7 +2,7 @@ import { CHANGE_LOCALE } from '../actions/actionTypes';
 import { fromJS } from 'immutable';
 
 const initialState = fromJS({
-  locale: 'ru',
+  locale: 'en',
 });
 
 const localeReducer = (state = initialState, action)=> {

@@ -1,6 +1,4 @@
 import * as actionTypes from './actionTypes';
-import { getUrl } from '../../shared/moviedb';
-
 
 export const fetchGenreListInit = () => {
   return {

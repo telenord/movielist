@@ -41,3 +41,7 @@ export {
 export {
   changeLocale
 } from './locale';
+
+export {
+  fetchOnSearchMoviesInit
+} from './search';

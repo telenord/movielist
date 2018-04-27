@@ -4,14 +4,19 @@ import axios from 'axios/index';
 
 export function* apiFetchSaga(action) {
   const state = yield select();
-  const language =  state.get('language').get('locale');
+  const language = state.get('language').get('locale');
 
-  console.log('saga',   state, language);
-  const {url, start, success, error} = action.meta;
-  const fullPath = getUrl(url, {language});
+  const {url, start, success, error, page, query} = action.meta;
+  const params = {language};
+  if (page) {
+    params.page = page;
+  }
+  if (query) {
+    params.query = query;
+  }
   yield put(start());
   try {
-    const response = yield axios.get(fullPath);
+    const response = yield axios.get(getUrl(url, params));
     yield put(success(response.data));
 
   } catch (err) {

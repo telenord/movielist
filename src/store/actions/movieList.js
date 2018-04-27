@@ -1,9 +1,16 @@
 import * as actionTypes from './actionTypes';
 
-
 export const fetchMovieListInit = (page) => {
   return {
-    type: actionTypes.MOVIE_LIST_FETCH_INIT,
+    type: actionTypes.API_FETCH_INIT,
+    meta: {
+      type: 'movieList',
+      url: '/movie/popular',
+      page: page,
+      start: fetchMovieListStart,
+      success: fetchMovieListSuccess,
+      error: fetchMovieListFail,
+    },
     page
   }
 };

@@ -16,10 +16,18 @@ export const removeMovieFromFavorite = (movie) => {
 
 export const fetchMovieInit = (id) => {
   return {
-    type: actionTypes.MOVIE_FETCH_INIT,
+    type: actionTypes.API_FETCH_INIT,
+    meta: {
+      type: 'movie',
+      url: `/movie/${id}`,
+      start: fetchMovieStart,
+      success: fetchMovieSuccess,
+      error: fetchMovieFail,
+    },
     id
   }
 };
+
 
 export const fetchMovieStart = () => {
   return {

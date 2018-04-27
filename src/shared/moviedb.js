@@ -8,16 +8,6 @@ const buildParamString = params =>{
 }
 
 export const getUrl = (category, params = {}  ) => {
-  // console.log('params1', params);
-  //  params.language = params.language ? params.language : 'ru';
-  // params.bams = params.bams ? params.bams : 'qweqwe';
-
-  console.log('params', params);
-  // let  arr = Object.keys(params).map(param=>{
-  //   return param = params[param];
-  // })
-
-  //console.log(arr);
   const url = `${BASE_API_URL}${category}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`;
   return params ? `${url}${buildParamString(params)}` : url;
 };

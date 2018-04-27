@@ -1,13 +1,17 @@
 import * as actionTypes from './actionTypes';
-import { getUrl } from '../../shared/moviedb';
+
 
 export const fetchRecommendMoviesInit = (id) => {
   return {
-    type: actionTypes.RECOMMEND_MOVIES_FETCH_INIT,
+    type: actionTypes.API_FETCH_INIT,
     meta: {
-      type: 'api',
-      url: getUrl(`/movie/${id}/recommendations`)
-    }
+      type: 'recommendations',
+      url: `/movie/${id}/recommendations`,
+      start: fetchRecommendMoviesStart,
+      success: fetchRecommendMoviesSuccess,
+      error: fetchRecommendMoviesFail,
+    },
+    id
   }
 };
 

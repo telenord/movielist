@@ -26,11 +26,21 @@ class Home extends Component {
     this.props.onMovieListInit();
     this.props.onGenresListInit();
   }
+  componentWillReceiveProps(nextProps){
+
+    // const {value} = this.state;
+    // console.log(value);
+    // if(value){
+    //   this.props.onSearchInit(value)
+    // }
+    //TODO : add Autocomplete component
+    // TODO search pagination
+  }
 
   handleSearch(event) {
     const {value} = event.target;
     this.setState({value});
-    value === '' ? this.props.onMovieListInit() : this.props.onSearchInit(value);
+    value === ''  ? this.props.onMovieListInit() : this.props.onSearchInit(value);
   }
 
   handleIconClick(movie, e) {
@@ -42,7 +52,7 @@ class Home extends Component {
     this.props.onMovieListInit(offset/20 + 1);
   };
 
-  //TODO : add Autocomplete component
+
 
   render() {
     const {movieList, isLoading, pagination} = this.props;
@@ -98,7 +108,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onMovieListInit: (page) => dispatch(actions.fetchMovieListInit(page)),
     onGenresListInit: () => dispatch(actions.fetchGenreListInit()),
-    onSearchInit: (val) => dispatch(actions.searchMovieListInit(val)),
+    onSearchInit: (val) => dispatch(actions.fetchOnSearchMoviesInit(val)),
     onAddMovieToFavorite: (movie) => dispatch(actions.addMovieToFavorite(movie)),
     onRemoveMovieFromFavorite: (movie) => dispatch(actions.removeMovieFromFavorite(movie)),
   }
