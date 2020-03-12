@@ -6,7 +6,6 @@ import { getUrl } from '../../shared/moviedb';
 
 
 export function* fetchMovieListSaga(action) {
-  console.log(action);
   const url = action ? getUrl('/movie/popular', `page=${action.page}`): getUrl('/movie/popular');
 
   yield put(actions.fetchMovieListStart());

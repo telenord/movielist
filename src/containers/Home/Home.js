@@ -14,7 +14,7 @@ import MovieList from '../../components/MovieList/MovieList';
 import {
   Grid, Row, Col
 } from 'react-bootstrap';
-import { makeSelectMovies, makeSelectMoviesListPagination } from '../../store/selectors';
+import {  makeSelectMoviesListPagination } from '../../store/selectors';
 
 class Home extends Component {
   state = {

@@ -10,7 +10,6 @@ const initialState = fromJS({
   error: null
 });
 const movieListFetchInit = (state, action) => {
-  console.log(action);
   return state
   .set('loading', true)
   .set('error', null)
